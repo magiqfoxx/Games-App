@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Board from "./components/Board";
+import "./sass/main.scss";
+import Menu from "./components/Menu";
+import NavBar from "./components/NavBar";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { game: 0 };
+  }
+  gameChoice = game => {
+    this.setState({ game: game });
+  };
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div id="app">
+        <Menu gameChoice={this.gameChoice} />
+        <Board game={this.state.game} />
+        <NavBar />
       </div>
     );
   }
