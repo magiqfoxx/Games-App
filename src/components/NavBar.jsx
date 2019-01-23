@@ -6,7 +6,6 @@ class NavBar extends Component {
     return (
       <React.Fragment>
         <div id="navBar" className="hidden">
-          Clock
           <button
             className="navBar--button"
             onClick={() => {

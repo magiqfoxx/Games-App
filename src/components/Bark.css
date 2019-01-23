@@ -52,14 +52,14 @@ h2 {
   text-align: center;
 }
 button.board--button {
-  height: 20px;
-  margin: 10px;
-  padding: 5px 10px;
+  height: 2rem;
+  margin: 1rem;
+  padding: 0rem 2rem;
   cursor: pointer;
-  background-color: antiquewhite;
-  border-radius: 10px;
-  box-shadow: grey 2px 3px 0px;
+  background-color: #f5e4c36e;
+  border: 3px groove rgba(151, 202, 185, 0.3);
+  /*border: 3px outset rgba(151, 202, 185, 0.3);*/
 }
 button.board--button:active {
-  box-shadow: none;
+  border: 3px inset rgba(151, 202, 185, 0.3);
 }

@@ -83,7 +83,7 @@ class Bark extends Component {
   startGame = () => {
     //Creates a new random sequence
     this.makeNewSequence();
-
+    this.props.gameIsStarted(true); //starts timer
     //play the new sequence
     this.playSequence();
   };
@@ -112,7 +112,7 @@ class Bark extends Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <div class="board board__bark">
         <h2>Level {this.state.difficulty - 2}</h2>
         <div className="board--nav">
           <button className="board--button" onClick={this.startGame}>
@@ -124,7 +124,7 @@ class Bark extends Component {
         </div>
 
         <div className="board--pieces__bark">{this.renderBoard()}</div>
-      </React.Fragment>
+      </div>
     );
   }
 }

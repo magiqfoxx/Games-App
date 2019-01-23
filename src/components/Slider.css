@@ -2,16 +2,19 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  width: 75vw;
+  width: 60vw;
   background-image: url("../img/slider/bck.jpg");
+  border: 5px double #ffdeada6;
+  border-radius: 30px;
+  overflow: hidden;
 }
 .board__slider--spot img {
-  max-width: 25vw;
+  max-width: 20vw;
 }
 .board__slider--spot {
   position: relative;
-  width: 25vw;
-  height: 25vw;
+  width: 20vw;
+  height: 20vw;
 }
 
 .board__slider--arrow {
@@ -21,18 +24,18 @@
 }
 .board__slider--arrow-up {
   top: -5vh;
-  left: 8vw;
+  left: 5vw;
 }
 .board__slider--arrow-right {
-  top: 10vh;
+  top: 7vh;
   right: -4vw;
 }
 .board__slider--arrow-down {
   bottom: -5vh;
-  left: 8vw;
+  left: 5vw;
 }
 .board__slider--arrow-left {
-  top: 10vh;
+  top: 7vh;
   left: -4vh;
 }
 .board__slider--arrow-visible {

@@ -9,15 +9,19 @@ class Board extends Component {
     super(props);
     this.state = {};
   }
+  gameIsStarted = () => {
+    this.props.gameIsStarted(true);
+  };
+
   renderBoard() {
     if (this.props.game === 0) {
-      return <EmptyBoard />;
+      return <EmptyBoard gameChoice={this.props.gameChoice} />;
     } else if (this.props.game === 1) {
-      return <Slider />;
+      return <Slider gameIsStarted={this.gameIsStarted} />;
     } else if (this.props.game === 2) {
-      return <Memo />;
+      return <Memo gameIsStarted={this.gameIsStarted} />;
     } else if (this.props.game === 3) {
-      return <Bark />;
+      return <Bark gameIsStarted={this.gameIsStarted} />;
     }
   }
   render() {

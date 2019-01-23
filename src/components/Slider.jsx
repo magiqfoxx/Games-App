@@ -5,22 +5,19 @@ import { randomPositions } from "./functions";
 class Slider extends React.Component {
   state = {
     positions: {
-      0: 5,
-      1: 3,
+      0: 0,
+      1: 1,
       2: 2,
-      3: 1,
-      4: 7,
-      5: 0,
-      6: null,
-      7: 4,
-      8: 6
+      3: 3,
+      4: 4,
+      5: 5,
+      6: 6,
+      7: 7,
+      8: 8
     },
-    arrows: {
-      3: "down",
-      7: "left"
-    }
+    arrows: {}
   };
-
+  positions = {};
   updateArrows = () => {
     let posOfNull = Number(
       Object.keys(Object.values(this.state.positions)).find(
@@ -78,7 +75,7 @@ class Slider extends React.Component {
       if (arrow === null) {
         return (
           <img
-            className="image"
+            className="board__slider--image"
             src={`../img/slider/${pieceImg}`}
             alt={`piece-${piece}`}
           />
@@ -92,7 +89,7 @@ class Slider extends React.Component {
               alt={`piece-${piece}`}
             />
             <img
-              className={`arrow arrow-${arrow}`}
+              className={`board__slider--arrow board__slider--arrow-${arrow}`}
               alt={`Arrow ${arrow}`}
               src={`../img/slider/arrow-${arrow}.png`}
             />
@@ -103,8 +100,8 @@ class Slider extends React.Component {
     let renderTheSpot = (piece, arrow = null) => {
       return (
         <div
-          className="spot"
-          id={`location-${location}`}
+          className="board__slider--spot"
+          id={`board__slider--location-${location}`}
           onClick={() => {
             this.slidePiece(location);
           }}
@@ -136,25 +133,47 @@ class Slider extends React.Component {
     return this.drawPieces();
   };
   componentDidMount() {
-    //this.updateArrows();
-    //this.drawBoard();
-    //return this.drawPieces();
+    let positions = randomPositions(9);
+    let posOfNull = Number(
+      Object.keys(Object.values(positions)).find(
+        key => Object.values(positions)[key] === 2
+      )
+    );
+    positions[posOfNull] = null;
+    this.positions = positions;
   }
+  resetGame = () => {
+    let positions = randomPositions(9);
+    let posOfNull = Number(
+      Object.keys(Object.values(positions)).find(
+        key => Object.values(positions)[key] === 2
+      )
+    );
+    positions[posOfNull] = null;
+    this.setState({ positions });
+  };
   startGame = () => {
     /* 1. choose a game -> picture is showed as whole
-    2. start the game - timer is started, board is drawed 
+    2. start the game - timer is started, board is drawn 
     3. onClick - piece is moved if possible. check if game is won
     4. game is won - stop the timer. show the time */
 
-    const positions = randomPositions(9);
-    this.setState({ positions });
+    this.setState({ positions: this.positions });
     //this.drawBoard();
     return this.drawPieces();
   };
   render() {
     return (
       <React.Fragment>
-        <div className="slider">{this.drawPieces()}</div>
+        <div className="board--nav">
+          <button className="button board--button" onClick={this.startGame}>
+            Start
+          </button>
+          <button className="button board--button" onClick={this.resetGame}>
+            Reset
+          </button>
+        </div>
+        <div className="board__slider">{this.drawPieces()}</div>
       </React.Fragment>
     );
   }

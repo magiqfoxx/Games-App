@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Timer from "./Timer";
 
 class Menu extends Component {
   constructor(props) {
@@ -11,31 +12,33 @@ class Menu extends Component {
 
   render() {
     return (
-      <nav id="menu">
-        <ul>
-          <li
-            onClick={() => {
-              this.chooseGame(1);
-            }}
-          >
-            Slider
-          </li>
-          <li
-            onClick={() => {
-              this.chooseGame(2);
-            }}
-          >
-            Memo
-          </li>
-          <li
-            onClick={() => {
-              this.chooseGame(3);
-            }}
-          >
-            Bark
-          </li>
-        </ul>
-      </nav>
+      <div id="menu">
+        <nav>
+          <ul>
+            <li
+              onClick={() => {
+                this.chooseGame(1);
+              }}
+            >
+              Slider
+            </li>
+            <li
+              onClick={() => {
+                this.chooseGame(2);
+              }}
+            >
+              Memo
+            </li>
+            <li
+              onClick={() => {
+                this.chooseGame(3);
+              }}
+            >
+              Bark
+            </li>
+          </ul>
+        </nav>
+      </div>
     );
   }
 }

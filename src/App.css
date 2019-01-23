@@ -11,7 +11,8 @@ body {
     ),
     url(../src/img/bck.jpg);
   background-size: cover;
-  font-family: "Pacifico", cursive;
+  font-family: "Amatic SC", cursive;
+  font-family: "Permanent Marker", cursive;
   font-weight: 300;
   font-size: 16px;
   line-height: 10px;
@@ -23,11 +24,44 @@ body {
   height: 100vh;
 }
 #menu {
-  min-height: 10vh;
+  border-bottom: 1px solid grey;
 }
-
-#board {
+#menu ul {
+  min-height: 5vh;
+  padding-top: 10px;
+}
+#menu li {
+  list-style: none;
+  display: inline;
+  margin: 1rem;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+}
+#menu li:hover {
+  background: rgba(123, 160, 148, 0.59);
+}
+.board {
   min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#board__empty h1 {
+  margin: 10vh auto;
+}
+#board__empty ol {
+  margin: 0 auto;
+}
+#board__empty li {
+  display: block;
+  min-width: 10vh;
+  margin: 2rem;
+  padding: 1rem 3rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+#board__empty li:hover {
+  background: rgba(123, 160, 148, 0.59);
 }
 #navBar {
   position: fixed;
@@ -36,9 +70,9 @@ body {
   min-width: 20vw;
   min-height: 80vh;
   background-color: #f5e4c36e;
-  border: 5px ridge rgba(151, 202, 185, 0.1);
-  border-right: none;
-  border-radius: 50px;
+  border-left: 5px groove rgba(151, 202, 185, 0.3);
+  -webkit-clip-path: polygon(-10% 10%, 95% 0%, 95% 90%, -30% 72%);
+  clip-path: polygon(-10% 10%, 95% 0%, 95% 90%, -30% 72%);
 }
 #navBar.hidden {
   right: -20vw;
@@ -54,6 +88,9 @@ body {
   border: none;
   content: inherit;
 }
-h1 {
-  margin-top: 30vh;
+
+#timer {
+  position: fixed;
+  top: 10px;
+  right: 50px;
 }
