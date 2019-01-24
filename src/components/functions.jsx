@@ -12,7 +12,14 @@ export function newSeqNoR(length) {
   }
   return newArr;
 }
+export function returnPositions(keys, values) {
+  let positions = {};
+  for (let key of keys) {
+    positions[key] = values[key];
+  }
+  return positions;
 
+}
 export function randomPositions(length) {
   /* Returns an object with random positions */
 
@@ -23,6 +30,15 @@ export function randomPositions(length) {
   }
   return positions;
 }
+function shuffleArray(arr) {
+  let random = newSeqNoR(arr.length);
+  let newArr = random.reduce(function(sum, thisElement) {
+    sum.push(arr[thisElement]);
+    return sum;
+  }, []);
+
+  return newArr;
+}
 
 export function ValidateOrder(correctArr, checkArr) {
   if (JSON.stringify(correctArr) === JSON.stringify(checkArr)) {
@@ -30,4 +46,34 @@ export function ValidateOrder(correctArr, checkArr) {
   } else {
     return false;
   }
+}
+
+export function findNull(object) {
+  //Returns key for which object[key] === null
+  let locationOfNull = Number(
+    Object.keys(Object.values(object)).find(
+      key => Object.values(object)[key] === null
+    )
+  );
+  return locationOfNull;
+}
+
+export function findArrows(object) {
+  //returns an object with where { position : direction }
+  let locationOfNull = findNull(object);
+  let arrows = {};
+
+  if (locationOfNull < 6) {
+    arrows[locationOfNull + 3] = "up";
+  }
+  if (locationOfNull > 2) {
+    arrows[locationOfNull - 3] = "down";
+  }
+  if (locationOfNull !== 2 && locationOfNull !== 5 && locationOfNull !== 8) {
+    arrows[locationOfNull + 1] = "left";
+  }
+  if (locationOfNull !== 0 && locationOfNull !== 3 && locationOfNull !== 6) {
+    arrows[locationOfNull - 1] = "right";
+  }
+  return arrows;
 }

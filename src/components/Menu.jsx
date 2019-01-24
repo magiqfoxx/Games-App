@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Timer from "./Timer";
 
 class Menu extends Component {
   constructor(props) {

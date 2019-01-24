@@ -121,35 +121,18 @@ class Slider extends React.Component {
   };
 
   drawPieces = () => {
-    let posArray = Object.values(this.state.positions);
-    let i = -1;
-    return posArray.map(el => {
-      i += 1;
-      return this.drawPiece(i, el);
+    let positionValues = Object.values(this.state.positions);
+    return positionValues.map((value, i) => {
+      return this.drawPiece(i, value);
     });
   };
 
-  drawBoard = () => {
-    return this.drawPieces();
-  };
-  componentDidMount() {
-    let positions = randomPositions(9);
-    let posOfNull = Number(
-      Object.keys(Object.values(positions)).find(
-        key => Object.values(positions)[key] === 2
-      )
-    );
-    positions[posOfNull] = null;
-    this.positions = positions;
-  }
+  componentDidMount() {}
   resetGame = () => {
-    let positions = randomPositions(9);
-    let posOfNull = Number(
-      Object.keys(Object.values(positions)).find(
-        key => Object.values(positions)[key] === 2
-      )
-    );
-    positions[posOfNull] = null;
+    let keys = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    let values = shuffleArray([0, 1, null, 3, 4, 5, 6, 7, 8]);
+    let positions = returnPositions(keys, values);
+    let posOfNull = values.indexOf(null);
     this.setState({ positions });
   };
   startGame = () => {
