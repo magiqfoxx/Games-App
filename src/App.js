@@ -5,6 +5,7 @@ import "./sass/main.scss";
 import Menu from "./components/Menu";
 import NavBar from "./components/NavBar";
 import Timer from "./components/Timer";
+import Audio from "./components/Audio";
 
 class App extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class App extends Component {
   render() {
     return (
       <div id="app">
+        <Audio />
         <Menu gameChoice={this.gameChoice} />
         <Timer gameIsStarted={this.state.gameIsStarted} />
         <Board
@@ -44,6 +46,7 @@ Add lifecycle functions
 Maybe: add more picture options
 Slider: refactor refactor refactor
 esp. fix posOfNull or write a shuffle function instead
+add listener for keyboard arrows
 alternative to the empty/null piece
 check if game is won
 Memo: implement

@@ -1,103 +1,91 @@
 import React from "react";
 import "./Slider.css";
-import { randomPositions } from "./functions";
+import {
+  findNull,
+  findArrows,
+  shuffleArray,
+  returnPositions
+} from "./functions";
 
 class Slider extends React.Component {
   state = {
-    positions: {
-      0: 0,
-      1: 1,
-      2: 2,
-      3: 3,
-      4: 4,
-      5: 5,
-      6: 6,
-      7: 7,
-      8: 8
-    },
+    positions: { 0: 0, 1: 1, 2: null, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8 },
     arrows: {}
   };
-  positions = {};
-  updateArrows = () => {
-    let posOfNull = Number(
-      Object.keys(Object.values(this.state.positions)).find(
-        key => Object.values(this.state.positions)[key] === null
-      )
-    );
-    let arrows = {};
 
-    if (posOfNull < 6) {
-      arrows[posOfNull + 3] = "up";
-    }
-    if (posOfNull > 2) {
-      arrows[posOfNull - 3] = "down";
-    }
-    if (posOfNull !== 2 && posOfNull !== 5 && posOfNull !== 8) {
-      arrows[posOfNull + 1] = "left";
-    }
-    if (posOfNull !== 0 && posOfNull !== 3 && posOfNull !== 6) {
-      arrows[posOfNull - 1] = "right";
-    }
-    this.setState({ arrows: arrows });
-  };
+  checkIfGameWon() {
+    let yourSequence = Object.values(this.state.positions);
+    let correctSequence = [0, 1, null, 3, 4, 5, 6, 7, 8];
 
+    if (JSON.stringify(yourSequence) == JSON.stringify(correctSequence)) {
+      console.log("game is won");
+      return true;
+    }
+  }
   slidePiece = location => {
-    let pieceToMove = this.state.positions[location]; //name of piece at location
-    let sequenceOfPieces = Object.values(this.state.positions); //sequence of pieces
-    let posOfNull = Object.keys(sequenceOfPieces).find(
-      key => sequenceOfPieces[key] === null
-    );
+    let imgToMove = this.state.positions[location]; //img of piece at location
     let positions = this.state.positions;
+    let arrows = this.state.arrows;
+    let posOfNull = findNull(positions);
 
     //if pieceCanBeMoved === true;
-    if (this.state.arrows[location] !== undefined) {
+    if (arrows[location] !== undefined) {
       for (let spot in positions) {
         if (Number(spot) === location) {
           positions[spot] = null;
-        } else if (spot === posOfNull) {
-          positions[spot] = pieceToMove;
+        } else if (Number(spot) === posOfNull) {
+          positions[spot] = imgToMove;
         }
       }
-      this.setState({ positions: positions });
-      this.updateArrows();
+      posOfNull = findNull(positions);
+      if (!this.checkIfGameWon()) {
+        this.setState({ positions });
+        let arrows = findArrows(posOfNull);
+        this.setState({ arrows });
+      } else {
+        this.setState({
+          positions: { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8 }
+        });
+        this.setState({ arrows: {} });
+      }
     }
   };
 
   drawPiece = (location, piece) => {
-    let renderImg = (piece, arrow = null) => {
-      let pieceImg = "";
+    let renderImg = (piece, arrow = undefined) => {
+      let pieceImg;
+
       if (piece === null) {
         pieceImg = "empty.png";
       } else {
         pieceImg = `${piece}.jpg`;
       }
 
-      if (arrow === null) {
-        return (
-          <img
-            className="board__slider--image"
-            src={`../img/slider/${pieceImg}`}
-            alt={`piece-${piece}`}
-          />
-        );
+      let imgJSX = (
+        <img
+          className="board__slider--image"
+          src={`../img/slider/${pieceImg}`}
+          alt={`piece-${piece}`}
+          key={`img-${piece}`}
+        />
+      );
+      let arrowJSX = (
+        <img
+          className={`board__slider--arrow board__slider--arrow-${arrow}`}
+          alt={`Arrow ${arrow}`}
+          src={`../img/slider/arrow-${arrow}.png`}
+          key={`img-${arrow}`}
+        />
+      );
+
+      if (arrow === undefined) {
+        return imgJSX;
       } else {
-        return (
-          <React.Fragment>
-            <img
-              className="image"
-              src={`../img/slider/${pieceImg}`}
-              alt={`piece-${piece}`}
-            />
-            <img
-              className={`board__slider--arrow board__slider--arrow-${arrow}`}
-              alt={`Arrow ${arrow}`}
-              src={`../img/slider/arrow-${arrow}.png`}
-            />
-          </React.Fragment>
-        );
+        return [imgJSX, arrowJSX];
       }
     };
-    let renderTheSpot = (piece, arrow = null) => {
+
+    let renderTheSpot = (piece, arrow = undefined) => {
       return (
         <div
           className="board__slider--spot"
@@ -111,13 +99,8 @@ class Slider extends React.Component {
         </div>
       );
     };
-    let arrows = this.state.arrows;
-    if (arrows[location] !== undefined) {
-      //piece has an arrow
-      return renderTheSpot(piece, arrows[location]); //passing the direction of the arrow
-    } else {
-      return renderTheSpot(piece); //render without arrows
-    }
+
+    return renderTheSpot(piece, this.state.arrows[location]);
   };
 
   drawPieces = () => {
@@ -127,24 +110,27 @@ class Slider extends React.Component {
     });
   };
 
-  componentDidMount() {}
   resetGame = () => {
     let keys = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     let values = shuffleArray([0, 1, null, 3, 4, 5, 6, 7, 8]);
     let positions = returnPositions(keys, values);
     let posOfNull = values.indexOf(null);
     this.setState({ positions });
+    let arrows = findArrows(posOfNull);
+    this.setState({ arrows });
   };
   startGame = () => {
+    this.resetGame();
     /* 1. choose a game -> picture is showed as whole
     2. start the game - timer is started, board is drawn 
     3. onClick - piece is moved if possible. check if game is won
     4. game is won - stop the timer. show the time */
 
-    this.setState({ positions: this.positions });
-    //this.drawBoard();
     return this.drawPieces();
   };
+  //change buttons into reset and show picture?
+  //or "block" the start button
+  //right now they both do the same thing
   render() {
     return (
       <React.Fragment>

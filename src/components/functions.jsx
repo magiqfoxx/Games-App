@@ -18,7 +18,6 @@ export function returnPositions(keys, values) {
     positions[key] = values[key];
   }
   return positions;
-
 }
 export function randomPositions(length) {
   /* Returns an object with random positions */
@@ -30,7 +29,7 @@ export function randomPositions(length) {
   }
   return positions;
 }
-function shuffleArray(arr) {
+export function shuffleArray(arr) {
   let random = newSeqNoR(arr.length);
   let newArr = random.reduce(function(sum, thisElement) {
     sum.push(arr[thisElement]);
@@ -58,11 +57,8 @@ export function findNull(object) {
   return locationOfNull;
 }
 
-export function findArrows(object) {
-  //returns an object with where { position : direction }
-  let locationOfNull = findNull(object);
+export function findArrows(locationOfNull) {
   let arrows = {};
-
   if (locationOfNull < 6) {
     arrows[locationOfNull + 3] = "up";
   }
