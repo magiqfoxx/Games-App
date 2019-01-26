@@ -9,16 +9,31 @@ import {
 
 class Slider extends React.Component {
   state = {
+    //positions: { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8 },
     positions: { 0: 0, 1: 1, 2: null, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8 },
-    arrows: {}
+    arrows: {},
+    gameWon: false
   };
 
+  IfGameWon = () => {
+    return (
+      <div
+        className="backForMessage"
+        onClick={() => {
+          this.setState({ gameWon: false });
+        }}
+      >
+        <div id="you-won">Congratulations! You won in 0s</div>
+      </div>
+    );
+  };
   checkIfGameWon() {
     let yourSequence = Object.values(this.state.positions);
     let correctSequence = [0, 1, null, 3, 4, 5, 6, 7, 8];
 
     if (JSON.stringify(yourSequence) == JSON.stringify(correctSequence)) {
-      console.log("game is won");
+      //this.setState({ gameWon: true });
+
       return true;
     }
   }
@@ -121,6 +136,7 @@ class Slider extends React.Component {
   };
   startGame = () => {
     this.resetGame();
+    this.props.gameIsStarted(true);
     /* 1. choose a game -> picture is showed as whole
     2. start the game - timer is started, board is drawn 
     3. onClick - piece is moved if possible. check if game is won
@@ -141,6 +157,9 @@ class Slider extends React.Component {
           <button className="button board--button" onClick={this.resetGame}>
             Reset
           </button>
+        </div>
+        <div className="board--message__won">
+          {this.state.gameWon ? this.IfGameWon() : null}
         </div>
         <div className="board__slider">{this.drawPieces()}</div>
       </React.Fragment>
