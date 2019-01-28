@@ -16,6 +16,7 @@ class Slider extends React.Component {
   };
 
   IfGameWon = () => {
+    //this.props.gameIsWon(true);
     return (
       <div
         className="backForMessage"
@@ -23,7 +24,7 @@ class Slider extends React.Component {
           this.setState({ gameWon: false });
         }}
       >
-        <div id="you-won">Congratulations! You won in 0s</div>
+        <div id="you-won">Congratulations! You won in {this.props.time}</div>
       </div>
     );
   };
@@ -137,6 +138,7 @@ class Slider extends React.Component {
   startGame = () => {
     this.resetGame();
     this.props.gameIsStarted(true);
+
     /* 1. choose a game -> picture is showed as whole
     2. start the game - timer is started, board is drawn 
     3. onClick - piece is moved if possible. check if game is won

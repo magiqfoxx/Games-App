@@ -2,7 +2,7 @@ export function newSeqNoR(length) {
   /* Returns an array of [0,...,length-1] - no repeats */
 
   let arr = [...Array(length).keys()]; //for iteration
-  let arrCopy = arr.slice(); //for operation
+  let arrCopy = arr.slice(); //for operation: deep copy
   let newArr = [];
 
   for (let i = 0; i < arr.length; i++) {
@@ -13,6 +13,8 @@ export function newSeqNoR(length) {
   return newArr;
 }
 export function returnPositions(keys, values) {
+  //Returns an object from two arrays
+
   let positions = {};
   for (let key of keys) {
     positions[key] = values[key];

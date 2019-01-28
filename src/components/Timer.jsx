@@ -5,6 +5,8 @@ class Timer extends Component {
   componentWillReceiveProps = gameChange => {
     if (this.props.gameIsStarted !== gameChange.gameIsStarted) {
       this.timer();
+    } else if (this.props.gameIsWon !== gameChange.gameIsWon) {
+      this.props.timeWhenWon(this.state.time);
     }
   };
   setTime = timeNow => {
@@ -18,7 +20,23 @@ class Timer extends Component {
     //let seconds = Math.floor((msPassed / 1000) % 60);
     this.setState({ hours, minutes, seconds });
   };
+  formatState = (hours, minutes, seconds) => {
+    if (hours < 1 && minutes < 1) {
+      return `${seconds} s.`;
+    } else if (hours < 1) {
+      return `${minutes}min. and ${seconds}s.`;
+    } else {
+      return `${hours}h. ${minutes}min. and ${seconds}s.`;
+    }
+  };
   timer = () => {
+    this.setState({
+      time: this.formatState(
+        this.state.hours,
+        this.state.minutes,
+        this.state.seconds
+      )
+    });
     let time0 = new Date().getTime();
     this.setState({ time0 });
 

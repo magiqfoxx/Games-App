@@ -1,5 +1,6 @@
 .board__slider {
   margin: 0 auto;
+  margin-bottom: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 60vw;
@@ -40,4 +41,26 @@
 }
 .board__slider--arrow-visible {
   display: inline;
+}
+.board--message__hidden {
+  display: none;
+}
+.backForMessage {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+}
+#you-won {
+  width: 40vw;
+  height: 50vh;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.6);
+  color: black;
+  border: 3px rgba(255, 255, 255, 0.2) solid;
+  border-radius: 3px;
 }

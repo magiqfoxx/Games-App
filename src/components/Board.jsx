@@ -12,12 +12,21 @@ class Board extends Component {
   gameIsStarted = () => {
     this.props.gameIsStarted(true);
   };
+  gameIsWon = () => {
+    this.props.gameIsWon(true);
+  };
 
   renderBoard() {
     if (this.props.game === 0) {
       return <EmptyBoard gameChoice={this.props.gameChoice} />;
     } else if (this.props.game === 1) {
-      return <Slider gameIsStarted={this.gameIsStarted} />;
+      return (
+        <Slider
+          gameIsStarted={this.gameIsStarted}
+          gameIsWon={this.gameIsWon}
+          time={this.props.time}
+        />
+      );
     } else if (this.props.game === 2) {
       return <Memo gameIsStarted={this.gameIsStarted} />;
     } else if (this.props.game === 3) {
