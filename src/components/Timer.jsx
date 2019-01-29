@@ -2,13 +2,28 @@ import React, { Component } from "react";
 
 class Timer extends Component {
   state = { time0: 0, hours: 0, minutes: 0, seconds: 0 };
+
   componentWillReceiveProps = gameChange => {
+    //checks if a game has been started from prop
     if (this.props.gameIsStarted !== gameChange.gameIsStarted) {
       this.timer();
+
+      //checks if a game has been won from prop and sends back the time
     } else if (this.props.gameIsWon !== gameChange.gameIsWon) {
-      this.props.timeWhenWon(this.state.time);
+      this.props.timeWhenWon(
+        this.formatState(
+          this.state.hours,
+          this.state.minutes,
+          this.state.seconds
+        )
+      );
+      //works clearInterval(this.timeInterval);
+      //timer is stopped by state
+      this.setState({ gameIsStarted: false });
+      this.setState({ hours: 0, minutes: 0, seconds: 0 });
     }
   };
+
   setTime = timeNow => {
     let msPassed = timeNow - this.state.time0;
     let hours = Math.floor(msPassed / 1000 / 60 / 60);
@@ -20,6 +35,7 @@ class Timer extends Component {
     //let seconds = Math.floor((msPassed / 1000) % 60);
     this.setState({ hours, minutes, seconds });
   };
+
   formatState = (hours, minutes, seconds) => {
     if (hours < 1 && minutes < 1) {
       return `${seconds} s.`;
@@ -29,7 +45,13 @@ class Timer extends Component {
       return `${hours}h. ${minutes}min. and ${seconds}s.`;
     }
   };
+
   timer = () => {
+    this.setState({ gameIsStarted: true });
+    /*if (!this.state.gameIsStarted) {
+      return null;
+    }*/
+
     this.setState({
       time: this.formatState(
         this.state.hours,
@@ -40,7 +62,7 @@ class Timer extends Component {
     let time0 = new Date().getTime();
     this.setState({ time0 });
 
-    setInterval(() => {
+    const timeInterval = setInterval(() => {
       let time1 = new Date().getTime();
       this.setTime(time1);
     }, 1000);

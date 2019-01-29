@@ -5,34 +5,44 @@ import Memo from "./Memo";
 import Bark from "./Bark";
 
 class Board extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  state = {};
+
   gameIsStarted = () => {
     this.props.gameIsStarted(true);
   };
   gameIsWon = () => {
     this.props.gameIsWon(true);
   };
+  emptyBoard = <EmptyBoard gameChoice={this.props.gameChoice} />;
+  slider = (
+    <Slider gameIsStarted={this.gameIsStarted} gameIsWon={this.gameIsWon} />
+  );
+  bark = <Bark gameIsStarted={this.gameIsStarted} />;
+
+  memo = (
+    <Memo
+      startGame={this.props.gameIsStarted}
+      gameIsStarted={this.gameIsStarted}
+      gameIsWon={this.gameIsWon}
+    />
+  );
 
   renderBoard() {
-    if (this.props.game === 0) {
-      return <EmptyBoard gameChoice={this.props.gameChoice} />;
-    } else if (this.props.game === 1) {
-      return (
-        <Slider
-          gameIsStarted={this.gameIsStarted}
-          gameIsWon={this.gameIsWon}
-          time={this.props.time}
-        />
-      );
-    } else if (this.props.game === 2) {
-      return <Memo gameIsStarted={this.gameIsStarted} />;
-    } else if (this.props.game === 3) {
-      return <Bark gameIsStarted={this.gameIsStarted} />;
+    let gameChoice = this.props.game;
+    switch (gameChoice) {
+      case 0:
+        return this.emptyBoard;
+      case 1:
+        return this.slider;
+      case 2:
+        return this.memo;
+      case 3:
+        return this.bark;
+      default:
+        return this.emptyBoard;
     }
   }
+
   render() {
     return this.renderBoard();
   }

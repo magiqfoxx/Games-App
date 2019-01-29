@@ -10,52 +10,59 @@ class Memo extends Component {
     points: 0,
     boardSize: 0,
     positions: {}, //card-id:img
-    turned: [],
-    pairsFound: []
+    turned: [], //by id
+    pairsFound: [] //by img
   };
 
   onLevelChange = value => {
+    //this.props.gameIsStarted(true);
     this.setState({ boardSize: value });
     let posValues = newSeqNoR(value).concat(newSeqNoR(value));
-    let posKeys = [...Array(value * 2).keys()]; //crates an array in range(0,value)
+    let posKeys = [...Array(value * 2).keys()]; //crates an array for range(0,value)
     let positions = returnPositions(posKeys, posValues);
     this.setState({ positions });
   };
   addPoints = () => {
     let points = this.state.points + 100;
     this.setState({ points });
-    console.log(this.state.points, "points");
+  };
+  pairIsFound = id => {
+    let positions = this.state.positions;
+    let pairsFound = this.state.pairsFound;
+    pairsFound.push(positions[id]);
+    this.addPoints();
+    this.setState({ turned: [] });
+    this.setState({ pairsFound });
+
+    if (this.state.pairsFound.length === this.state.boardSize) {
+      this.props.gameIsWon(true);
+    }
   };
   changeState = id => {
     let turned = this.state.turned;
     let positions = this.state.positions;
+
     if (turned.length < 2) {
-      console.log("That's one turned");
     } else if (positions[turned[0]] !== positions[turned[1]]) {
-      console.log("That's not a pair");
       setTimeout(() => {
         this.setState({ turned: [] });
       }, 1500);
     } else if (positions[turned[0]] === positions[turned[1]]) {
-      console.log("that's a pair");
       setTimeout(() => {
-        this.setState({ turned: [] });
+        this.pairIsFound(id);
       }, 1500);
-      this.addPoints();
-      let pairsFound = this.state.pairsFound;
-      pairsFound.push(positions[id]);
-      this.setState({ pairsFound });
     }
   };
   pieceIsTurned = id => {
     //done like this because otherwise state did not update
-    this.setState({ turned: [...this.state.turned, id] }, () => {
-      this.changeState(id);
-    });
+    if (this.state.turned.length < 2) {
+      this.setState({ turned: [...this.state.turned, id] }, () => {
+        this.changeState(id);
+      });
+    }
   };
 
   drawBoard = () => {
-    //console.log(turned);
     let pieces = Object.values(this.state.positions);
     return pieces.map((piece, index) => {
       return (
@@ -80,8 +87,13 @@ class Memo extends Component {
   render() {
     return (
       <React.Fragment>
-        <MemoMenu onLevelChange={this.onLevelChange} />
-        <div className="board-memo">{this.drawBoard()}</div>
+        <MemoMenu
+          points={this.state.points}
+          onLevelChange={this.onLevelChange}
+        />
+        <div className="board-memo">
+          {this.props.startGame ? this.drawBoard() : null}
+        </div>
       </React.Fragment>
     );
   }

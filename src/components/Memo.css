@@ -1,0 +1,46 @@
+.board-memo--menu {
+  margin: 20px;
+}
+.board-memo--menu form {
+  margin: 20px;
+}
+.board-memo--menu form label {
+  margin-right: 8vw;
+  margin-left: 10px;
+}
+.board-memo--menu form input {
+  margin: 5px;
+}
+.board--button {
+  height: 2rem;
+  margin: 1rem;
+  padding: 0rem 2rem;
+  cursor: pointer;
+  background-color: #f5e4c36e;
+  border: 3px groove rgba(151, 202, 185, 0.3);
+  /*border: 3px outset rgba(151, 202, 185, 0.3);*/
+}
+.board--button:active {
+  border: 3px inset rgba(151, 202, 185, 0.3);
+}
+.board-memo {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-row-gap: 5vh;
+}
+.board-memo img {
+  max-width: 15vw;
+  border-radius: 5px;
+}
+.memo-hidden {
+  display: hidden;
+}
+.front {
+  position: absolute;
+}
+.card {
+  position: absolute;
+}
+[id="23"] {
+  display: none;
+}

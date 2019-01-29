@@ -6,30 +6,57 @@ import Menu from "./components/Menu";
 import NavBar from "./components/NavBar";
 import Timer from "./components/Timer";
 import Audio from "./components/Audio";
+import GameWon from "./components/GameWon";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { game: 0, gameIsStarted: false };
+    this.state = {
+      game: 0,
+      gameIsStarted: false,
+      gameIsWon: false,
+      timeWhenWon: ""
+    };
   }
   gameChoice = game => {
     this.setState({ game: game });
   };
   gameIsStarted = gameIsStarted => {
-    this.setState({ gameIsStarted });
+    this.setState({ gameIsStarted: true });
+  };
+  gameIsWon = gameIsWon => {
+    this.setState({ gameIsWon });
+    this.setState({ gameIsStarted: false });
+  };
+  timeWhenWon = timeWhenWon => {
+    this.setState({ timeWhenWon });
+  };
+  handleClose = () => {
+    this.setState({ gameIsWon: false });
   };
   render() {
     return (
       <div id="app">
         <Audio />
         <Menu gameChoice={this.gameChoice} />
-        <Timer gameIsStarted={this.state.gameIsStarted} />
+        <Timer
+          gameIsStarted={this.state.gameIsStarted}
+          gameIsWon={this.state.gameIsWon}
+          timeWhenWon={this.timeWhenWon}
+        />
         <Board
           gameChoice={this.gameChoice}
           game={this.state.game}
           gameIsStarted={this.gameIsStarted}
+          gameIsWon={this.gameIsWon}
         />
         <NavBar />
+        {this.state.gameIsWon ? (
+          <GameWon
+            timeWhenWon={this.state.timeWhenWon}
+            handleClose={this.handleClose}
+          />
+        ) : null}
       </div>
     );
   }
