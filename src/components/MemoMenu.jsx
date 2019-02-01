@@ -5,14 +5,16 @@ class MemoMenu extends Component {
   handleChange = value => {
     this.setState({ value });
   };
+
   handleSubmit = event => {
     event.preventDefault();
     this.props.onLevelChange(this.state.value);
   };
+
   render() {
     return (
       <div className="board-memo--menu">
-        Level :
+        Points : {this.props.points}
         <form onSubmit={this.handleSubmit}>
           <input
             type="radio"

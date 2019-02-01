@@ -17,16 +17,6 @@ class Slider extends React.Component {
 
   IfGameWon = () => {
     //this.props.gameIsWon(true);
-    return (
-      <div
-        className="backForMessage"
-        onClick={() => {
-          this.setState({ gameWon: false });
-        }}
-      >
-        <div id="you-won">Congratulations! You won in {this.props.time}</div>
-      </div>
-    );
   };
   checkIfGameWon() {
     let yourSequence = Object.values(this.state.positions);
@@ -160,9 +150,7 @@ class Slider extends React.Component {
             Reset
           </button>
         </div>
-        <div className="board--message__won">
-          {this.state.gameWon ? this.IfGameWon() : null}
-        </div>
+
         <div className="board__slider">{this.drawPieces()}</div>
       </React.Fragment>
     );

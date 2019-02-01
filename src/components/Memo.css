@@ -35,6 +35,9 @@
 .memo-hidden {
   display: hidden;
 }
+.board-memo__card {
+  position: relative;
+}
 .front {
   position: absolute;
 }

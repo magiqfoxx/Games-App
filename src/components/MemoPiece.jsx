@@ -24,8 +24,9 @@ class MemoPiece extends Component {
         key={this.props.id}
       />
     );
-    if (this.props.pairsFound.find(el => el == this.props.piece)) {
+    if (this.props.pairsFound.includes(this.props.piece)) {
       //this piece has been found
+      //time delay not working here
       setTimeout(() => {
         return null;
       }, 1000);

@@ -7,39 +7,16 @@ import Bark from "./Bark";
 class Board extends Component {
   state = {};
 
-  gameIsStarted = () => {
-    this.props.gameIsStarted(true);
-  };
-  gameIsWon = () => {
-    this.props.gameIsWon(true);
-  };
-  emptyBoard = <EmptyBoard gameChoice={this.props.gameChoice} />;
-  slider = (
-    <Slider gameIsStarted={this.gameIsStarted} gameIsWon={this.gameIsWon} />
-  );
-  bark = <Bark gameIsStarted={this.gameIsStarted} />;
-
-  memo = (
-    <Memo
-      startGame={this.props.gameIsStarted}
-      gameIsStarted={this.gameIsStarted}
-      gameIsWon={this.gameIsWon}
-    />
-  );
-
   renderBoard() {
     let gameChoice = this.props.game;
-    switch (gameChoice) {
-      case 0:
-        return this.emptyBoard;
-      case 1:
-        return this.slider;
-      case 2:
-        return this.memo;
-      case 3:
-        return this.bark;
-      default:
-        return this.emptyBoard;
+    if (gameChoice === 1) {
+      return <Slider />;
+    } else if (gameChoice === 2) {
+      return <Memo />;
+    } else if (gameChoice === 3) {
+      return <Bark />;
+    } else {
+      return <EmptyBoard gameChoice={this.props.gameChoice} />;
     }
   }
 

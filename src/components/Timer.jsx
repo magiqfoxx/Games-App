@@ -1,28 +1,8 @@
 import React, { Component } from "react";
 
 class Timer extends Component {
-  state = { time0: 0, hours: 0, minutes: 0, seconds: 0 };
-
-  componentWillReceiveProps = gameChange => {
-    //checks if a game has been started from prop
-    if (this.props.gameIsStarted !== gameChange.gameIsStarted) {
-      this.timer();
-
-      //checks if a game has been won from prop and sends back the time
-    } else if (this.props.gameIsWon !== gameChange.gameIsWon) {
-      this.props.timeWhenWon(
-        this.formatState(
-          this.state.hours,
-          this.state.minutes,
-          this.state.seconds
-        )
-      );
-      //works clearInterval(this.timeInterval);
-      //timer is stopped by state
-      this.setState({ gameIsStarted: false });
-      this.setState({ hours: 0, minutes: 0, seconds: 0 });
-    }
-  };
+  state = { time0: 0, timeNow: 0, hours: 0, minutes: 0, seconds: 0 };
+  timeInterval;
 
   setTime = timeNow => {
     let msPassed = timeNow - this.state.time0;
@@ -34,6 +14,23 @@ class Timer extends Component {
     let seconds = this.state.seconds + 1; //floor is wrong sometimes
     //let seconds = Math.floor((msPassed / 1000) % 60);
     this.setState({ hours, minutes, seconds });
+    this.setState({
+      timeNow: this.formatState(
+        this.state.hours,
+        this.state.minutes,
+        this.state.seconds
+      )
+    });
+  };
+
+  timer = () => {
+    let time0 = new Date().getTime();
+    this.setState({ time0 });
+
+    this.timeInterval = setInterval(() => {
+      let time1 = new Date().getTime();
+      this.setTime(time1);
+    }, 1000);
   };
 
   formatState = (hours, minutes, seconds) => {
@@ -46,34 +43,21 @@ class Timer extends Component {
     }
   };
 
-  timer = () => {
-    this.setState({ gameIsStarted: true });
-    /*if (!this.state.gameIsStarted) {
-      return null;
-    }*/
+  componentDidUpdate(oldProps) {
+    //thx u/charliematters
+    const newProps = this.props;
+    if (oldProps.gameIsStarted !== newProps.gameIsStarted) {
+      if (this.props.gameIsStarted) {
+        this.timer();
+      } else {
+        this.props.timeWhenStopped(this.state.timeNow);
+        clearInterval(this.timeInterval);
+      }
+    }
+  }
 
-    this.setState({
-      time: this.formatState(
-        this.state.hours,
-        this.state.minutes,
-        this.state.seconds
-      )
-    });
-    let time0 = new Date().getTime();
-    this.setState({ time0 });
-
-    const timeInterval = setInterval(() => {
-      let time1 = new Date().getTime();
-      this.setTime(time1);
-    }, 1000);
-  };
-  componentDidMount() {}
   render() {
-    return (
-      <div id="timer">
-        {this.state.hours}:{this.state.minutes}:{this.state.seconds}
-      </div>
-    );
+    return <div id="timer">{this.state.timeNow}</div>;
   }
 }
 
