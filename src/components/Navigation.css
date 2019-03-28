@@ -1,0 +1,29 @@
+nav {
+  width: 100vw;
+  height: 3rem;
+}
+nav ul {
+  display: flex;
+  justify-content: center;
+}
+nav ul li {
+  list-style: none;
+  margin: 1rem;
+}
+#menu {
+  border-bottom: 1px solid grey;
+}
+#menu ul {
+  min-height: 5vh;
+  padding-top: 10px;
+}
+#menu li {
+  list-style: none;
+  display: inline;
+  margin: 1rem;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+}
+#menu li:hover {
+  background: rgba(123, 160, 148, 0.59);
+}

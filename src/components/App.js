@@ -1,34 +1,36 @@
 import React, { Component } from "react";
+import { Switch } from "react-router";
+import { Route } from "react-router-dom";
 import "./App.css";
-import Board from "./components/Board";
-//import "./sass/main.scss";
-import Menu from "./components/Menu";
-import NavBar from "./components/NavBar";
-import Audio from "./components/Audio";
+
+import Navigation from "./Navigation";
+import Sidebar from "./Sidebar";
+import Audio from "./Audio";
+
+import Home from "./Home";
+import Slider from "./Slider";
+import Memo from "./Memo";
+import Bark from "./Bark";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      game: 0
-    };
-  }
-  gameChoice = game => {
-    this.setState({ game: game });
-  };
   render() {
     return (
-      <div id="app">
+      <React.Fragment>
         <Audio />
-        <Menu gameChoice={this.gameChoice} />
-        <Board gameChoice={this.gameChoice} game={this.state.game} />
-        <NavBar />
-      </div>
+        <Navigation />
+        <Sidebar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/slider" component={Slider} />
+          <Route path="/memo" component={Memo} />
+          <Route path="/bark" component={Bark} />
+        </Switch>
+      </React.Fragment>
     );
   }
 }
 export default App;
-
+//<Board gameChoice={this.gameChoice} game={this.state.game} />
 /*
 To do:
 Fix the Css / implement Sass
@@ -49,6 +51,9 @@ Timer: Finish implementing for all games, add saving time
 Points: ?
 Music: add icons and audio playing features
 Themes: ?
-Routing
+
 Other possible games: connect the pipes
+
+done:
+Routing 
 */
