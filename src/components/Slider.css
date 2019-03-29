@@ -1,4 +1,16 @@
-.board__slider {
+.slider--button {
+  padding: 0.7rem 2rem;
+  background-color: transparent;
+  border: 1px solid var(--brown);
+  margin: 0 2rem;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+.slider--button:hover {
+  background-color: var(--brown);
+  color: #ffffffbf;
+}
+.slider--board {
   margin: 0 auto;
   margin-bottom: 20px;
   display: grid;
@@ -9,37 +21,37 @@
   border-radius: 30px;
   overflow: hidden;
 }
-.board__slider--spot img {
-  max-width: 20vw;
-}
-.board__slider--spot {
+.slider--spot {
   position: relative;
   width: 20vw;
   height: 20vw;
 }
+.slider--spot img {
+  max-width: 20vw;
+}
 
-.board__slider--arrow {
+.slider--arrow {
   position: absolute;
   width: 10vw;
   z-index: 10;
 }
-.board__slider--arrow-up {
+.slider--arrow__up {
   top: -5vh;
   left: 5vw;
 }
-.board__slider--arrow-right {
+.slider--arrow__right {
   top: 7vh;
   right: -4vw;
 }
-.board__slider--arrow-down {
+.slider--arrow__down {
   bottom: -5vh;
   left: 5vw;
 }
-.board__slider--arrow-left {
+.slider--arrow__left {
   top: 7vh;
   left: -4vh;
 }
-.board__slider--arrow-visible {
+.slider--arrow__visible {
   display: inline;
 }
 .board--message__hidden {

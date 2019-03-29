@@ -13,5 +13,6 @@
   cursor: pointer;
 }
 #board__empty li:hover {
-  background: rgba(123, 160, 148, 0.59);
+  /* background: rgba(123, 160, 148, 0.59); */
+  border: 1px solid #924a55;
 }

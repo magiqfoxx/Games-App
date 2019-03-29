@@ -6,6 +6,7 @@ import "./App.css";
 import Navigation from "./Navigation";
 import Sidebar from "./Sidebar";
 import Audio from "./Audio";
+import Footer from "./Footer";
 
 import Home from "./Home";
 import Slider from "./Slider";
@@ -15,7 +16,7 @@ import Bark from "./Bark";
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <div id="app">
         <Audio />
         <Navigation />
         <Sidebar />
@@ -25,7 +26,8 @@ class App extends Component {
           <Route path="/memo" component={Memo} />
           <Route path="/bark" component={Bark} />
         </Switch>
-      </React.Fragment>
+        <Footer />
+      </div>
     );
   }
 }

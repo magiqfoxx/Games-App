@@ -3,6 +3,17 @@
   padding: 0px;
   box-sizing: border-box;
 }
+html {
+  --marron: #924a55;
+  --brown: #733a3a;
+  font-family: "Amatic SC", cursive;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 10px;
+  color: var(--marron);
+  text-align: center;
+}
 body {
   background: rgba(151, 202, 185, 0.1);
   background: linear-gradient(
@@ -11,14 +22,8 @@ body {
     ),
     url(../img/bck.jpg);
   background-size: cover;
-  font-family: "Amatic SC", cursive;
-  font-family: "Permanent Marker", cursive;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 10px;
-  color: #924a55;
-  text-align: center;
 }
+
 a {
   color: inherit;
   text-decoration: none;
@@ -26,6 +31,9 @@ a {
 #app {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 #audio {
   position: fixed;
@@ -69,4 +77,11 @@ a {
   color: black;
   border: 3px rgba(255, 255, 255, 0.2) solid;
   border-radius: 3px;
+}
+footer {
+  width: 100vw;
+  height: 3rem;
+  padding: 1rem;
+  background-color: #224c4ecf;
+  color: white;
 }
