@@ -5,7 +5,7 @@ import { randomizeAction, incrementMoves, movePieceAction } from "../actions";
 import "./Slider.css";
 
 /* Implement a CSS solution for no grid browsers */
-
+//store.getState()
 const Slider = props => {
   let startTimer = () => {
     console.log("time");
@@ -17,7 +17,7 @@ const Slider = props => {
   let drawPieces = () => {
     //get 'pieces' from the store
     let pieces = props.order;
-    return pieces.map((piece, i) => {
+    return props.order.map((piece, i) => {
       // the null piece has to be a png, unlike the rest
       let piecePic;
       if (piece === null) {
@@ -29,7 +29,7 @@ const Slider = props => {
         <div className="slider--spot" key={i}>
           <img
             src={`/img/slider/${piecePic}`}
-            onClick={() => movePiece(piece)}
+            onClick={() => props.movePieceAction(props.order, piece)}
           />
         </div>
       );
@@ -39,18 +39,15 @@ const Slider = props => {
     return drawPieces();
   };
   let startGame = () => {
+    //change text to "reset"
     props.randomizeAction(props.order);
     startTimer();
-  };
-  let reset = () => {
-    props.randomizeAction(props.order);
   };
 
   return (
     <main>
       <div>
         <button onClick={startGame}>start</button>
-        <button onClick={reset}>reset</button>
       </div>
       <div className="slider--board">{drawBoard()}</div>
     </main>
@@ -58,7 +55,6 @@ const Slider = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return { order: state.newOrder, moves: state.moves };
 };
 export default connect(
