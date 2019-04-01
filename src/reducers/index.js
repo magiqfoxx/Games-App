@@ -13,6 +13,31 @@ const newOrderReducer = (
     return currentOrder;
   }
 };
+const orderBark = (currentOrder = [0, 1, 2], action) => {
+  if (action.type === "RANDOMIZE_ORDER__BARK") {
+    return randomize(action.payload.order);
+  } else {
+    return currentOrder;
+  }
+};
+const guessedSeqBark = (guess = [], action) => {
+  if (action.type === "SET_NEW_SEQ__BARK") {
+    return action.payload.newSeq;
+  } else if (action.type === "RESET_SEQ__BARK") {
+    return [];
+  } else {
+    return guess;
+  }
+};
+const level = (level = 1, action) => {
+  if (action.type === "UP_LEVEL__BARK") {
+    return action.payload.level + 1;
+  } else if (action.type === "ZERO_LEVEL__BARK") {
+    return 1;
+  } else {
+    return level;
+  }
+};
 const movesReducer = (moves = 0, action) => {
   if (action.type === "INCREMENT_MOVEMENT") {
     //nonsense. doesn't do anything
@@ -21,7 +46,15 @@ const movesReducer = (moves = 0, action) => {
     return moves;
   }
 };
+const timerReducer = (time = 0, action) => {
+  if (action.type === "START_TIMER") {
+    return true;
+  }
+};
 export default combineReducers({
   newOrder: newOrderReducer,
+  orderBark,
+  guessedSeqBark: guessedSeqBark,
+  level: level,
   moves: movesReducer
 });

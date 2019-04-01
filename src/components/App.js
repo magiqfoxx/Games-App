@@ -12,6 +12,7 @@ import Home from "./Home";
 import Slider from "./Slider";
 import Memo from "./Memo";
 import Bark from "./Bark";
+import Timer from "./Timer";
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
       <div id="app">
         <Audio />
         <Navigation />
+        <Timer />
         <Sidebar />
         <Switch>
           <Route exact path="/" component={Home} />

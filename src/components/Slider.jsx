@@ -17,7 +17,7 @@ const Slider = props => {
   let drawPieces = () => {
     //get 'pieces' from the store
     let pieces = props.order;
-    return props.order.map((piece, i) => {
+    return props.order.map(piece => {
       // the null piece has to be a png, unlike the rest
       let piecePic;
       if (piece === null) {
@@ -26,7 +26,7 @@ const Slider = props => {
         piecePic = piece + ".jpg";
       }
       return (
-        <div className="slider--spot" key={i}>
+        <div className="slider--spot" key={piece}>
           <img
             src={`/img/slider/${piecePic}`}
             onClick={() => props.movePieceAction(props.order, piece)}
@@ -39,7 +39,7 @@ const Slider = props => {
     return drawPieces();
   };
   let startGame = () => {
-    //change text to "reset"
+    document.querySelector("#slider--button").innerHTML = "reset";
     props.randomizeAction(props.order);
     startTimer();
   };
@@ -47,7 +47,9 @@ const Slider = props => {
   return (
     <main>
       <div>
-        <button onClick={startGame}>start</button>
+        <button className="button" id="slider--button" onClick={startGame}>
+          start
+        </button>
       </div>
       <div className="slider--board">{drawBoard()}</div>
     </main>
