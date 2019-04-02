@@ -13,16 +13,18 @@ const newOrderReducer = (
     return currentOrder;
   }
 };
+
+//BARK
 const orderBark = (currentOrder = [0, 1, 2], action) => {
   if (action.type === "RANDOMIZE_ORDER__BARK") {
-    return randomize(action.payload.order);
+    return randomize(currentOrder);
   } else {
     return currentOrder;
   }
 };
 const guessedSeqBark = (guess = [], action) => {
-  if (action.type === "SET_NEW_SEQ__BARK") {
-    return action.payload.newSeq;
+  if (action.type === "ADD_TO_SEQ__BARK") {
+    return guess; //.concat(action.payload.guess) ?? whyy
   } else if (action.type === "RESET_SEQ__BARK") {
     return [];
   } else {
@@ -31,7 +33,7 @@ const guessedSeqBark = (guess = [], action) => {
 };
 const level = (level = 1, action) => {
   if (action.type === "UP_LEVEL__BARK") {
-    return action.payload.level + 1;
+    return level + 1;
   } else if (action.type === "ZERO_LEVEL__BARK") {
     return 1;
   } else {

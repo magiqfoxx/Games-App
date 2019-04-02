@@ -33,20 +33,17 @@ export const startTimer = () => {
 };
 
 //BARK
-export const randomizeBark = order => {
+export const randomizeOrderBark = () => {
   return {
-    type: "RANDOMIZE_ORDER__BARK",
-    payload: {
-      order
-    }
+    type: "RANDOMIZE_ORDER__BARK"
   };
 };
 
-export const setNewSeqBark = newSeq => {
+export const addToSeqBark = guess => {
   return {
-    type: "SET_NEW_SEQ__BARK",
+    type: "ADD_TO_SEQ__BARK",
     payload: {
-      newSeq
+      guess
     }
   };
 };
@@ -55,12 +52,9 @@ export const resetSeqBark = () => {
     type: "RESET_SEQ__BARK"
   };
 };
-export const upLevel = level => {
+export const upLevel = () => {
   return {
-    type: "UP_LEVEL__BARK",
-    payload: {
-      level
-    }
+    type: "UP_LEVEL__BARK"
   };
 };
 export const zeroLevel = () => {

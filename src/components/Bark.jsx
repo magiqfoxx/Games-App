@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  randomizeBark,
-  setNewSeqBark,
+  randomizeOrderBark,
+  addToSeqBark,
   resetSeqBark,
   upLevel,
   zeroLevel
@@ -18,6 +18,7 @@ const Bark = props => {
   function startTimer() {
     console.log("time");
   }
+
   function play(piece, index) {
     const audio = new Audio(`/audio/bark/${piece}.mp3`);
     audio.play();
@@ -30,6 +31,7 @@ const Bark = props => {
         .classList.remove("playing", `playing-${piece}`);
     }, 1500);
   }
+
   function playRound() {
     props.order.map((piece, index) => {
       setTimeout(() => {
@@ -40,35 +42,50 @@ const Bark = props => {
         .classList.remove("playing", `playing-${piece}`);
     });
   }
-  function guessSequence(piece) {
+
+  function guessSequence(piece, index) {
+    //order is based on picture not its' location
+    //board gets rendered before state is updated?
+
     play(piece);
-    let guess = props.guessedSequence;
-    guess.push(piece);
-    if (JSON.stringify(guess) === JSON.stringify(props.order)) {
+    let guessedSequence = props.guessedSequence;
+    guessedSequence.push(index);
+    console.log(index, props.guessedSequence);
+
+    if (JSON.stringify(guessedSequence) === JSON.stringify(props.order)) {
       console.log("game is won");
-      props.upLevel(props.level);
-      start();
+      document.querySelector("#message__right").style.display = "block";
+      setTimeout(function() {
+        document.querySelector("#message__right").style.display = "none";
+        props.upLevel(props.level);
+        start();
+      }, 3000);
     } else if (
-      JSON.stringify(guess) ===
-      JSON.stringify(props.order.slice(0, guess.length))
+      JSON.stringify(guessedSequence) ===
+      JSON.stringify(props.order.slice(0, guessedSequence.length))
     ) {
       //so far so good
-      props.setNewSeqBark(guess);
+      console.log(index);
+      props.addToSeqBark(index);
       console.log("current seq ", props.order);
       console.log("seq guessed so far ", props.guessedSequence);
     } else {
       //wrong
+      document.querySelector("#message__wrong").style.display = "block";
+      setTimeout(function() {
+        document.querySelector("#message__wrong").style.display = "none";
+        props.resetSeqBark();
+      }, 2000);
       console.log("wrong");
-      props.resetSeqBark();
     }
   }
   function drawBoard() {
-    return props.order.map(piece => {
+    return props.order.map((piece, index) => {
       return (
         <img
           src={`/img/${piece}.jpg`}
           key={piece}
-          onClick={() => guessSequence(piece)}
+          onClick={() => guessSequence(piece, index)}
           id={`piece-${piece}`}
           alt={`puppy-${piece}`}
         />
@@ -76,11 +93,9 @@ const Bark = props => {
     });
   }
   function start() {
-    let level = props.level;
-    let order = [...Array(level + 2).keys()];
-    console.log(order);
-    props.randomizeBark(order);
-    drawBoard();
+    console.log(props.level);
+    let order = [...Array(props.level + 2).keys()];
+    props.randomizeOrderBark(order);
     document.querySelector("#bark--button").innerHTML = "reset";
     startTimer();
     playRound();
@@ -93,7 +108,15 @@ const Bark = props => {
           start
         </button>
       </div>
-      <div className="bark--board">{drawBoard()}</div>
+      <div className="bark--board" id="bark--board">
+        {drawBoard()}
+        <div id="message__wrong" className="message">
+          Wrong
+        </div>
+        <div id="message__right" className="message">
+          Good job!
+        </div>
+      </div>
     </main>
   );
 };
@@ -109,5 +132,5 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  { randomizeBark, setNewSeqBark, resetSeqBark, upLevel, zeroLevel }
+  { randomizeOrderBark, addToSeqBark, resetSeqBark, upLevel, zeroLevel }
 )(Bark);

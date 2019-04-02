@@ -5,6 +5,8 @@
   margin: 1rem;
   text-transform: uppercase;
   color: var(--brown);
+  font-family: inherit;
+  font-size: 1.1rem;
 }
 .button:hover {
   background-color: var(--brown);
