@@ -9,12 +9,9 @@ html {
   font-family: "Shadows Into Light", cursive;
   font-family: "Amatic SC", cursive;
   font-family: "Reenie Beanie", cursive;
-  font-family: "Nanum Pen Script", cursive;
-  font-family: "Annie Use Your Telescope", cursive;
-  font-family: "Nanum Brush Script", cursive;
   font-family: "Sue Ellen Francisco", cursive;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 10px;
   color: var(--marron);
   text-align: center;
@@ -58,8 +55,13 @@ a {
 
 #timer {
   position: fixed;
-  top: 10px;
-  right: 50px;
+  top: 0.8rem;
+  right: 2.5rem;
+}
+#points {
+  position: absolute;
+  top: 1.8rem;
+  right: 1.8rem;
 }
 .board--message__won {
   overflow: auto;

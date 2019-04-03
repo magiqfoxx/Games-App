@@ -13,6 +13,7 @@ import Slider from "./Slider";
 import Memo from "./Memo";
 import Bark from "./Bark";
 import Timer from "./Timer";
+import Points from "./Points";
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
         <Audio />
         <Navigation />
         <Timer />
+        <Points />
         <Sidebar />
         <Switch>
           <Route exact path="/" component={Home} />

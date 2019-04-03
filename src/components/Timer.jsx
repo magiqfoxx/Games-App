@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { startTimer, stopTimer, resetTimer, timeWhenStopped } from "../actions";
 
 class Timer extends Component {
   state = { time0: 0, timeNow: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -46,19 +48,42 @@ class Timer extends Component {
   componentDidUpdate(oldProps) {
     //thx u/charliematters
     const newProps = this.props;
-    if (oldProps.gameIsStarted !== newProps.gameIsStarted) {
-      if (this.props.gameIsStarted) {
+    if (oldProps.time !== newProps.time) {
+      if (this.props.time) {
         this.timer();
+      } else if (this.props.time === "reset") {
+        this.setState = {
+          time0: 0,
+          timeNow: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0
+        };
       } else {
         this.props.timeWhenStopped(this.state.timeNow);
         clearInterval(this.timeInterval);
       }
     }
   }
-
+  componentWillUnmount() {
+    clearInterval(this.timeInterval);
+  }
   render() {
     return <div id="timer">{this.state.timeNow}</div>;
   }
 }
-
-export default Timer;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    time: state.time
+  };
+};
+export default connect(
+  mapStateToProps,
+  {
+    startTimer,
+    stopTimer,
+    resetTimer,
+    timeWhenStopped
+  }
+)(Timer);

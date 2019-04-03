@@ -1,23 +1,151 @@
-import React, { Component } from "react";
-import { newSeqNoR } from "./functions";
-import "./Memo.css";
-import MemoPiece from "./MemoPiece";
-import MemoMenu from "./MemoMenu";
-import { returnPositions } from "./functions";
-import Timer from "./Timer";
-import GameWon from "./GameWon";
+import React from "react";
+import { connect } from "react-redux";
+import {
+  startTimer,
+  stopTimer,
+  resetTimer,
+  addPoints,
+  resetPoints,
+  incrementMovement,
+  resetMovement,
+  setboardSize,
+  setOrderMemo,
+  randomizeMemo,
+  setPairMemo,
+  resetPairMemo
+} from "../actions";
 
-class Memo extends Component {
-  state = {
-    points: 0,
-    boardSize: 0,
-    positions: {}, //card-id:img
-    turned: [], //by id
-    pairsFound: [], //by img
-    gameIsStarted: false,
-    gameIsWon: false,
-    timeWhenStopped: 0
+import "./Memo.css";
+const Memo = props => {
+  function startGame() {
+    props.resetPairMemo();
+    setOrderMemo(props.boardSize);
+    props.randomizeMemo(props.order);
+    props.startTimer();
+    console.log(props.order);
+  }
+  function flipPiece(piece, index) {
+    document.getElementById(`piece-back-${index}`).style.display = "none";
+    console.log(props.pairMemo);
+    if (props.pair.length === 0) {
+      //first flip
+      console.log("first flip");
+      props.setPairMemo({ piece: index });
+    } else if (Object.keys(props.pair)[0] === piece) {
+      //a pair
+      console.log("pair");
+      //hide both
+      document.getElementById(`piece-front-${index}`).style.display = "none";
+      document.getElementById(
+        `piece-front-${Object.values(props.pairMemo)[0]}`
+      ).style.display = "none";
+      props.resetPairMemo();
+    } else {
+      //not a pair
+      console.log("wrong");
+      document.getElementById(`piece-back-${index}`).style.display = "block";
+      document.getElementById(
+        `piece-back-${Object.values(props.pairMemo)[0]}`
+      ).style.display = "block";
+      props.resetPairMemo();
+    }
+  }
+  function drawBoard() {
+    return props.order.map((piece, index) => {
+      return (
+        <div className="piece" key={index}>
+          <img
+            src={`/img/${piece}.jpg`}
+            className="piece-front"
+            id={`piece-front-${index}`}
+          />
+          <img
+            src={`/img/back.jpg`}
+            className="piece-back"
+            id={`piece-back-${index}`}
+            onClick={() => flipPiece(piece, index)}
+          />
+        </div>
+      );
+    });
+  }
+  function setBoardSize(value) {
+    console.log("size", props.boardSize);
+    props.setboardSize(value);
+  }
+
+  return (
+    <main>
+      <div>
+        <form id="form" name="board-size">
+          12
+          <input
+            type="radio"
+            name="board-size"
+            value="12"
+            onChange={() => setBoardSize(6)}
+            defaultChecked
+          />
+          16
+          <input
+            type="radio"
+            name="board-size"
+            value="16"
+            onChange={() => setBoardSize(8)}
+          />
+          20
+          <input
+            type="radio"
+            name="board-size"
+            value="20"
+            onChange={() => setBoardSize(10)}
+          />
+        </form>
+        <button
+          type="submit"
+          className="button"
+          id="slider--button"
+          onClick={startGame}
+        >
+          start
+        </button>
+      </div>
+      <div className="board-memo">{drawBoard()}</div>
+    </main>
+  );
+};
+
+const mapStateToProps = state => {
+  return {
+    time: state.timerReducer,
+    timeWhenStopped: state.timeWhenStopped,
+    points: state.pointsReducer,
+    moves: state.movesReducer,
+    boardSize: state.boardSizeMemo,
+    order: state.orderMemo,
+    pair: state.pairMemo
   };
+};
+export default connect(
+  mapStateToProps,
+  {
+    startTimer,
+    stopTimer,
+    resetTimer,
+    addPoints,
+    resetPoints,
+    incrementMovement,
+    resetMovement,
+    setboardSize,
+    setOrderMemo,
+    randomizeMemo,
+    setPairMemo,
+    resetPairMemo
+  }
+)(Memo);
+
+/*class Memo extends Component {
+  
 
   onLevelChange = value => {
     this.setState({ boardSize: value });
@@ -96,29 +224,13 @@ class Memo extends Component {
     this.setState({ gameIsWon: false });
   };
 
+
   render() {
     return (
-      <React.Fragment>
-        <MemoMenu
-          points={this.state.points}
-          onLevelChange={this.onLevelChange}
-        />
-        <div className="board-memo">
-          {this.state.boardSize > 0 ? this.drawBoard() : null}
-        </div>
-        <Timer
-          gameIsStarted={this.state.gameIsStarted}
-          timeWhenStopped={this.timeWhenStopped}
-        />
-        {this.state.gameIsWon ? (
-          <GameWon
-            handleClose={this.handleMessageClose}
-            timeWhenWon={this.state.timeWhenStopped}
-          />
-        ) : null}
-      </React.Fragment>
+     
     );
   }
 }
 
 export default Memo;
+*/

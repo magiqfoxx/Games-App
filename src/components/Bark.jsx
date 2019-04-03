@@ -1,11 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  randomizeOrderBark,
-  addToSeqBark,
-  resetSeqBark,
+  startTimer,
+  stopTimer,
+  resetTimer,
+  addPoints,
+  resetPoints,
+  incrementMovement,
+  resetMovement,
   upLevel,
-  zeroLevel
+  resetLevel,
+  setNewOrderBark,
+  randomizeOrderBark,
+  addToOrderBark,
+  addToSeqBark,
+  resetSeqBark
 } from "../actions";
 
 import "./Bark.css";
@@ -33,6 +42,7 @@ const Bark = props => {
   }
 
   function playRound() {
+    console.log("round", props.order);
     props.order.map((piece, index) => {
       setTimeout(() => {
         play(piece, index);
@@ -42,31 +52,35 @@ const Bark = props => {
         .classList.remove("playing", `playing-${piece}`);
     });
   }
-
+  function gameIsWon() {
+    props.stopTimer();
+    props.addPoints(100);
+    console.log("game is won");
+    document.querySelector("#message__right").style.display = "block";
+    setTimeout(function() {
+      document.querySelector("#message__right").style.display = "none";
+      props.resetSeqBark();
+      props.upLevel(props.level);
+      start();
+    }, 3000);
+  }
   function guessSequence(piece, index) {
-    //order is based on picture not its' location
-    //board gets rendered before state is updated?
-
+    //there is a mutation of order state between playRound and first click
+    props.addMove();
     play(piece);
     let guessedSequence = props.guessedSequence;
-    guessedSequence.push(index);
-    console.log(index, props.guessedSequence);
+    guessedSequence.push(piece);
+    console.log(piece, props.guessedSequence);
 
     if (JSON.stringify(guessedSequence) === JSON.stringify(props.order)) {
-      console.log("game is won");
-      document.querySelector("#message__right").style.display = "block";
-      setTimeout(function() {
-        document.querySelector("#message__right").style.display = "none";
-        props.upLevel(props.level);
-        start();
-      }, 3000);
+      gameIsWon();
     } else if (
       JSON.stringify(guessedSequence) ===
       JSON.stringify(props.order.slice(0, guessedSequence.length))
     ) {
       //so far so good
       console.log(index);
-      props.addToSeqBark(index);
+      props.addToSeqBark(piece);
       console.log("current seq ", props.order);
       console.log("seq guessed so far ", props.guessedSequence);
     } else {
@@ -75,6 +89,7 @@ const Bark = props => {
       setTimeout(function() {
         document.querySelector("#message__wrong").style.display = "none";
         props.resetSeqBark();
+        playRound();
       }, 2000);
       console.log("wrong");
     }
@@ -93,9 +108,10 @@ const Bark = props => {
     });
   }
   function start() {
-    console.log(props.level);
-    let order = [...Array(props.level + 2).keys()];
-    props.randomizeOrderBark(order);
+    //props.setNewOrderBark(props.level);
+    props.addToOrderBark([0, 1, 2]);
+    //props.randomizeOrderBark();
+    console.log(props.order);
     document.querySelector("#bark--button").innerHTML = "reset";
     startTimer();
     playRound();
@@ -107,6 +123,7 @@ const Bark = props => {
         <button className="button" id="bark--button" onClick={start}>
           start
         </button>
+        <span>moves: {props.moves}</span>
       </div>
       <div className="bark--board" id="bark--board">
         {drawBoard()}
@@ -124,13 +141,30 @@ const Bark = props => {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    order: state.orderBark,
-    guessedSequence: state.guessedSeqBark,
+    time: state.time,
+    points: state.pointsReducer,
+    moves: state.movesReducer,
     level: state.level,
-    moves: state.moves
+    order: state.orderBark,
+    guessedSequence: state.guessedSeqBark
   };
 };
 export default connect(
   mapStateToProps,
-  { randomizeOrderBark, addToSeqBark, resetSeqBark, upLevel, zeroLevel }
+  {
+    startTimer,
+    stopTimer,
+    resetTimer,
+    addPoints,
+    resetPoints,
+    incrementMovement,
+    resetMovement,
+    upLevel,
+    resetLevel,
+    setNewOrderBark,
+    randomizeOrderBark,
+    addToOrderBark,
+    addToSeqBark,
+    resetSeqBark
+  }
 )(Bark);
