@@ -51,6 +51,7 @@ const Slider = props => {
           <img
             src={`/img/slider/${piecePic}`}
             onClick={() => movePiece(piece)}
+            alt={`piece-${piece}`}
           />
         </div>
       );
@@ -103,7 +104,6 @@ export default connect(
     incrementMovement,
     resetMovement,
     randomizeSlider,
-    incrementMovement,
     movePieceSlider
   }
 )(Slider);

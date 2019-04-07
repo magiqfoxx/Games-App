@@ -2,16 +2,16 @@ import { combineReducers } from "redux";
 import { randomize, movePiece } from "./helpers";
 
 const timer = (time = 0, action) => {
+  /* Stop: stops  and resets the timer
+  Start: resets and starts the timer */
   if (action.type === "START_TIMER") {
     return true;
   } else if (action.type === "STOP_TIMER") {
     return false;
-  } else if (action.type === "RESET_TIMER") {
-    return "reset";
   } else if (action.type === "INCREMENT_TIMER") {
     return time + 1;
   } else if (action.type === "RESET_TIMER") {
-    return 0;
+    return "reset";
   } else {
     return time;
   }
@@ -63,14 +63,14 @@ const orderSlider = (currentOrder = [null, 1, 2, 3, 4, 5, 6, 7, 8], action) => {
   }
 };
 //MEMO
-const boardSizeMemo = (gameSize = 0, action) => {
+const boardSizeMemo = (gameSize = 6, action) => {
   if (action.type === "SET_BOARD_SIZE__MEMO") {
     return action.payload.size;
   } else {
     return gameSize;
   }
 };
-const orderMemo = (currentOrder = [1, 2, 3, 4, 4, 3, 2, 1], action) => {
+const orderMemo = (currentOrder = [], action) => {
   if (action.type === "SET_NEW_ORDER__MEMO") {
     return [...Array(action.payload.size).keys()].concat([
       ...Array(action.payload.size).keys()

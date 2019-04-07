@@ -50,7 +50,7 @@ function isSolvable(order) {
       }
     }
   }
-  if (totalInversions % 2 == 0) {
+  if (totalInversions % 2 === 0) {
     return true;
   } else {
     return false;
