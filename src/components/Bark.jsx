@@ -28,16 +28,22 @@ order changes but it plays the same */
 class Bark extends Component {
   state = {};
   timeOut;
-  componentDidMount = () => {
-    this.props.setNewOrderBark(this.props.level);
-    this.props.randomizeOrderBark();
-  };
+  componentDidMount = () => {};
   componentWillUnmount = () => {
     clearTimeout(this.timeOut);
     this.props.stopTimer();
-    this.props.resetTimer();
+    //this.props.resetTimer();
     this.props.resetMovement();
     this.props.resetLevel();
+  };
+  start = () => {
+    this.props.setNewOrderBark(this.props.level);
+    this.props.randomizeOrderBark();
+    document.querySelector("#bark--button").innerHTML = "reset";
+    this.props.stopTimer();
+    //this.props.resetTimer();
+    this.props.startTimer();
+    this.playRound();
   };
   play = (piece, index) => {
     const audio = new Audio(`/audio/bark/${piece}.mp3`);
@@ -121,13 +127,7 @@ class Bark extends Component {
       );
     });
   };
-  start = () => {
-    this.props.startTimer();
 
-    console.log(this.props.order);
-    document.querySelector("#bark--button").innerHTML = "reset";
-    this.playRound();
-  };
   render() {
     return (
       <main>

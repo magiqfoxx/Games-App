@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   startTimer,
@@ -15,30 +15,44 @@ import {
 import "./Slider.css";
 
 /* Implement a CSS solution for no grid browsers */
-//store.getState()
-const Slider = props => {
-  function calculatePoints() {
-    return (2 - props.timeWhenStopped) * 3 + 700;
-  }
-  function gameIsWon() {
-    props.stopTimer();
-    props.addPoints(calculatePoints());
+class Slider extends Component {
+  state = {};
+  timeout;
+
+  componentWillUnmount = () => {
+    clearTimeout(this.timeout);
+    this.props.stopTimer();
+    //this.props.resetTimer();
+  };
+  startGame = () => {
+    document.querySelector("#slider--button").innerHTML = "reset";
+    this.props.randomizeSlider(this.props.order);
+    //this.props.resetTimer();
+    this.props.startTimer();
+  };
+
+  calculatePoints = () => {
+    return (2 - this.props.timeWhenStopped) * 3 + 700;
+  };
+  gameIsWon = () => {
+    this.props.stopTimer();
+    this.props.addPoints(this.calculatePoints());
     document.querySelector("#message__right").style.display = "block";
-    setTimeout(function() {
+    this.timeout = setTimeout(function() {
       document.querySelector("#message__right").style.display = "none";
     }, 3000);
-  }
-  function movePiece(piece) {
-    props.movePieceSlider(props.order, piece);
+  };
+  movePiece(piece) {
+    this.props.movePieceSlider(this.props.order, piece);
     if (
-      JSON.stringify(props.order) ===
+      JSON.stringify(this.props.order) ===
       JSON.stringify([null, 1, 2, 3, 4, 5, 6, 7, 8])
     ) {
-      gameIsWon();
+      this.gameIsWon();
     }
   }
-  function drawPieces() {
-    return props.order.map(piece => {
+  drawPieces = () => {
+    return this.props.order.map(piece => {
       // the null piece has to be a png, unlike the rest
       let piecePic;
       if (piece === null) {
@@ -50,40 +64,39 @@ const Slider = props => {
         <div className="slider--spot" key={piece}>
           <img
             src={`/img/slider/${piecePic}`}
-            onClick={() => movePiece(piece)}
+            onClick={() => this.movePiece(piece)}
             alt={`piece-${piece}`}
           />
         </div>
       );
     });
-  }
-  function drawBoard() {
-    return drawPieces();
-  }
-  function startGame() {
-    document.querySelector("#slider--button").innerHTML = "reset";
-    props.randomizeSlider(props.order);
-    props.resetTimer();
-    props.startTimer();
-  }
+  };
+  drawBoard = () => {
+    return this.drawPieces();
+  };
 
-  return (
-    <main>
-      <div>
-        <button className="button" id="slider--button" onClick={startGame}>
-          start
-        </button>
-      </div>
-      <div className="slider--board">
-        {drawBoard()}
-        <div id="message__right" className="message">
-          Good job!
+  render() {
+    return (
+      <main>
+        <div>
+          <button
+            className="button"
+            id="slider--button"
+            onClick={this.startGame}
+          >
+            start
+          </button>
         </div>
-      </div>
-    </main>
-  );
-};
-
+        <div className="slider--board">
+          {this.drawBoard()}
+          <div id="message__right" className="message">
+            Good job!
+          </div>
+        </div>
+      </main>
+    );
+  }
+}
 const mapStateToProps = state => {
   return {
     time: state.timerReducer,

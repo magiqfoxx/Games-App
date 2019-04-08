@@ -59,6 +59,7 @@ class Timer extends Component {
     );
   };
   resetTimer = () => {
+    //this doesn't work????
     this.setState = {
       time0: 0,
       timeNow: "",
@@ -68,6 +69,7 @@ class Timer extends Component {
     };
   };
   componentWillUnmount = () => {
+    //it unmounts when restarted?
     console.log("unmount");
   };
   componentDidUpdate(oldProps) {
@@ -79,7 +81,6 @@ class Timer extends Component {
         this.startTimer();
       } else if (this.props.time === "reset") {
         this.resetTimer();
-        this.stopTimer();
       } else if (this.props.time === false) {
         this.stopTimer();
       }
@@ -91,7 +92,6 @@ class Timer extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log(state);
   return {
     time: state.time,
     timeWhenStopped: state.timeWhenStopped

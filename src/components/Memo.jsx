@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   startTimer,
@@ -16,46 +16,56 @@ import {
 } from "../actions";
 
 import "./Memo.css";
-const Memo = props => {
-  /*useEffect(() => {}, []);*/
 
-  function startGame() {
-    props.startTimer();
-    props.resetPairMemo();
+class Memo extends Component {
+  state = {};
+  timeout;
 
-    props.setOrderMemo(props.boardSize);
-    props.randomizeMemo(props.order);
-  }
-  function flipPiece(piece, index) {
+  componentWillUnmount = () => {
+    this.props.stopTimer();
+    this.props.resetTimer();
+    clearTimeout(this.timeout);
+  };
+  startGame = () => {
+    this.props.startTimer();
+    this.props.setOrderMemo(this.props.boardSize);
+    this.props.randomizeMemo(this.props.order);
+
+    this.props.resetMovement();
+    this.props.resetPairMemo();
+  };
+
+  flipPiece = (piece, index) => {
     document.getElementById(`piece-back-${index}`).style.display = "none";
-    if (Object.keys(props.pair).length === 0) {
+    if (Object.keys(this.props.pair).length === 0) {
       //first flip
-      props.setPairMemo({ piece: piece, index: index });
-    } else if (props.pair["piece"] === piece) {
+      this.props.setPairMemo({ piece: piece, index: index });
+    } else if (this.props.pair["piece"] === piece) {
       //a pair
       //hide both
-      setTimeout(() => {
+      this.timeout = setTimeout(() => {
         document.getElementById(`piece-front-${index}`).style.display = "none";
         document.getElementById(
-          `piece-front-${props.pair["index"]}`
+          `piece-front-${this.props.pair["index"]}`
         ).style.display = "none";
       }, 1500);
-      props.addPoints(100);
-      props.resetPairMemo();
+
+      this.props.addPoints(100);
+      this.props.resetPairMemo();
     } else {
       //not a pair
       setTimeout(() => {
         document.getElementById(`piece-back-${index}`).style.display = "block";
         document.getElementById(
-          `piece-back-${props.pair["index"]}`
+          `piece-back-${this.props.pair["index"]}`
         ).style.display = "block";
       }, 1500);
-      props.resetPairMemo();
+      this.props.resetPairMemo();
     }
-  }
-  function drawBoard() {
-    //props.setState();
-    return props.order.map((piece, index) => {
+  };
+  drawBoard = () => {
+    //this.props.setState();
+    return this.props.order.map((piece, index) => {
       return (
         <div className="piece" key={index}>
           <img
@@ -68,54 +78,56 @@ const Memo = props => {
             src={`/img/back.jpg`}
             className="piece-back"
             id={`piece-back-${index}`}
-            onClick={() => flipPiece(piece, index)}
+            onClick={() => this.flipPiece(piece, index)}
             alt={`piece-back-${index}`}
           />
         </div>
       );
     });
-  }
+  };
 
-  return (
-    <main>
-      <div className="memo-nav">
-        <form id="form" name="board-size">
-          <input
-            type="radio"
-            name="board-size"
-            value="12"
-            onChange={() => props.setboardSize(6)}
-            defaultChecked
-          />
-          12
-          <input
-            type="radio"
-            name="board-size"
-            value="16"
-            onChange={() => props.setboardSize(8)}
-          />
-          16
-          <input
-            type="radio"
-            name="board-size"
-            value="20"
-            onChange={() => props.setboardSize(10)}
-          />
-          20
-        </form>
-        <button
-          type="submit"
-          className="button"
-          id="slider--button"
-          onClick={startGame}
-        >
-          start
-        </button>
-      </div>
-      <div className="board-memo">{drawBoard()}</div>
-    </main>
-  );
-};
+  render() {
+    return (
+      <main>
+        <div className="memo-nav">
+          <form id="form" name="board-size">
+            <input
+              type="radio"
+              name="board-size"
+              value="12"
+              onChange={() => this.props.setboardSize(6)}
+              defaultChecked
+            />
+            12
+            <input
+              type="radio"
+              name="board-size"
+              value="16"
+              onChange={() => this.props.setboardSize(8)}
+            />
+            16
+            <input
+              type="radio"
+              name="board-size"
+              value="20"
+              onChange={() => this.props.setboardSize(10)}
+            />
+            20
+          </form>
+          <button
+            type="submit"
+            className="button"
+            id="slider--button"
+            onClick={this.startGame}
+          >
+            start
+          </button>
+        </div>
+        <div className="board-memo">{this.drawBoard()}</div>
+      </main>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return {
