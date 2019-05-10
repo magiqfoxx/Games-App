@@ -11,26 +11,27 @@
 .board-memo--menu form input {
   margin: 5px;
 }
-.board--button {
-  height: 2rem;
-  margin: 1rem;
-  padding: 0rem 2rem;
-  cursor: pointer;
-  background-color: #f5e4c36e;
-  border: 3px groove rgba(151, 202, 185, 0.3);
-  /*border: 3px outset rgba(151, 202, 185, 0.3);*/
+.memo-nav input {
+  margin: 0.5rem;
+  margin-left: 3rem;
 }
-.board--button:active {
-  border: 3px inset rgba(151, 202, 185, 0.3);
-}
+
 .board-memo {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  grid-template-columns: 7rem 7rem 7rem 7rem;
   grid-row-gap: 5vh;
+  grid-column-gap: 5vw;
+}
+.piece {
+  position: relative;
+  min-height: 7rem;
 }
 .board-memo img {
-  max-width: 15vw;
+  position: absolute;
+  height: 100%;
   border-radius: 5px;
+  left: 0;
 }
 .memo-hidden {
   display: hidden;

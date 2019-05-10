@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import audio_file from "../audio/audio.mp3";
+import audio_file from "../../audio/audio.mp3";
 //Music: https://www.bensound.com
 
 class Audio extends Component {
@@ -30,7 +30,7 @@ class Audio extends Component {
     }
     return (
       <img
-        src={`../img/${icon}.png`}
+        src={`./img/${icon}.png`}
         alt={icon}
         onClick={() => {
           this.audioControl(icon);

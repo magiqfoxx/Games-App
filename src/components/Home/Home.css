@@ -3,15 +3,18 @@
 }
 #board__empty ul {
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 #board__empty li {
   display: block;
   min-width: 10vh;
-  margin: 2rem;
+  margin: 1rem;
   padding: 1rem 3rem;
   font-size: 2rem;
   cursor: pointer;
 }
 #board__empty li:hover {
-  background: rgba(123, 160, 148, 0.59);
+  /* background: rgba(123, 160, 148, 0.59); */
+  border: 1px solid #924a55;
 }

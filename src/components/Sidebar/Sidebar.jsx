@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./Sidebar.css";
-
+//put other options for picture/'collected' dogs and authors of pictures
 const Sidebar = () => {
   return (
     <div id="sidebar" className="hidden">
