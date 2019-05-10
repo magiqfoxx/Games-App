@@ -10,7 +10,7 @@ import {
   resetMovement,
   randomizeSlider,
   movePieceSlider
-} from "../actions";
+} from "../../actions";
 
 import "./Slider.css";
 
@@ -30,7 +30,6 @@ class Slider extends Component {
     //this.props.resetTimer();
     this.props.startTimer();
   };
-
   calculatePoints = () => {
     return (2 - this.props.timeWhenStopped) * 3 + 700;
   };
@@ -63,7 +62,7 @@ class Slider extends Component {
       return (
         <div className="slider--spot" key={piece}>
           <img
-            src={`/img/slider/${piecePic}`}
+            src={`./img/slider/${piecePic}`}
             onClick={() => this.movePiece(piece)}
             alt={`piece-${piece}`}
           />

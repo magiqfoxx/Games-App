@@ -22,7 +22,7 @@ body {
       rgba(151, 202, 185, 0.4),
       rgba(151, 202, 185, 0.4)
     ),
-    url(../img/bck.jpg);
+    url(./img/bck.jpg);
   background-size: cover;
 }
 
@@ -47,7 +47,7 @@ a {
 }
 
 .board {
-  min-height: 80vh;
+  min-height: calc(100vh - 6rem);
   display: flex;
   flex-direction: column;
   justify-content: center;

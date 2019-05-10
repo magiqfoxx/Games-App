@@ -13,7 +13,7 @@ import {
   randomizeMemo,
   setPairMemo,
   resetPairMemo
-} from "../actions";
+} from "../../actions";
 
 import "./Memo.css";
 
@@ -69,13 +69,13 @@ class Memo extends Component {
       return (
         <div className="piece" key={index}>
           <img
-            src={`/img/${piece}.jpg`}
+            src={`./img/${piece}.jpg`}
             className="piece-front"
             id={`piece-front-${index}`}
             alt={`piece-front-${index}`}
           />
           <img
-            src={`/img/back.jpg`}
+            src={`./img/back.jpg`}
             className="piece-back"
             id={`piece-back-${index}`}
             onClick={() => this.flipPiece(piece, index)}

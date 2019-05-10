@@ -15,7 +15,7 @@ import {
   addToOrderBark,
   addToSeqBark,
   resetSeqBark
-} from "../actions";
+} from "../../actions";
 
 import "./Bark.css";
 
@@ -118,7 +118,7 @@ class Bark extends Component {
     return this.props.order.map((piece, index) => {
       return (
         <img
-          src={`/img/${piece}.jpg`}
+          src={`./img/${piece}.jpg`}
           key={piece}
           onClick={() => this.guessSequence(piece, index)}
           id={`piece-${piece}`}

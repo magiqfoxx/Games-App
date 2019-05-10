@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { startTimer, stopTimer, resetTimer, timeWhenStopped } from "../actions";
+import {
+  startTimer,
+  stopTimer,
+  resetTimer,
+  timeWhenStopped
+} from "../../actions";
 
 class Timer extends Component {
   state = { time0: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -59,6 +64,7 @@ class Timer extends Component {
     );
   };
   resetTimer = () => {
+    clearInterval(this.timeInterval);
     //this doesn't work????
     this.setState = {
       time0: 0,

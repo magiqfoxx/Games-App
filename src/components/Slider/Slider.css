@@ -18,7 +18,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 60vw;
-  background-image: url("../img/slider/bck.jpg");
+  background-image: url("../../img/slider/bck.jpg");
   border: 5px double #ffdeada6;
   border-radius: 30px;
   overflow: hidden;

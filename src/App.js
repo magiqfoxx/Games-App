@@ -3,17 +3,17 @@ import { Switch } from "react-router";
 import { Route } from "react-router-dom";
 import "./App.css";
 
-import Navigation from "./Navigation";
-import Sidebar from "./Sidebar";
-import Audio from "./Audio";
-import Footer from "./Footer";
+import Navigation from "./components/Nav/Navigation";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Audio from "./components/Nav/Audio";
+import Footer from "./components/Footer";
 
-import Home from "./Home";
-import Slider from "./Slider";
-import Memo from "./Memo";
-import Bark from "./Bark";
-import Timer from "./Timer";
-import Points from "./Points";
+import Home from "./components/Home/Home";
+import Slider from "./components/Slider/Slider";
+import Memo from "./components/Memo/Memo";
+import Bark from "./components/Bark/Bark";
+import Timer from "./components/Nav/Timer";
+import Points from "./components/Nav/Points";
 
 class App extends Component {
   render() {
