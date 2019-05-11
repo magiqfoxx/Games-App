@@ -1,121 +1,38 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import {
-  startTimer,
-  stopTimer,
-  resetTimer,
-  addPoints,
-  resetPoints,
-  incrementMovement,
-  resetMovement,
-  randomizeSlider,
-  movePieceSlider
-} from "../../actions";
+import React, { useState } from "react";
+import SliderBoard from "./SliderBoard";
+import { shuffle, movePiece, isGameWon } from "./helpers";
 
-import "./Slider.css";
+const Slider = () => {
+  const [pieces, setPieces] = useState([null, 1, 2, 3, 4, 5, 6, 7, 8]);
+  const [isGameOn, setIsGameOn] = useState(false);
 
-/* Implement a CSS solution for no grid browsers */
-class Slider extends Component {
-  state = {};
-  timeout;
-
-  componentWillUnmount = () => {
-    clearTimeout(this.timeout);
-    this.props.stopTimer();
-    //this.props.resetTimer();
+  const startGame = () => {
+    const newSequence = shuffle([null, 1, 2, 3, 4, 5, 6, 7, 8]);
+    setPieces(newSequence);
+    document.getElementById("slider--button").innerHTML = "Reset";
+    setIsGameOn(true);
   };
-  startGame = () => {
-    document.querySelector("#slider--button").innerHTML = "reset";
-    this.props.randomizeSlider(this.props.order);
-    //this.props.resetTimer();
-    this.props.startTimer();
-  };
-  calculatePoints = () => {
-    return (2 - this.props.timeWhenStopped) * 3 + 700;
-  };
-  gameIsWon = () => {
-    this.props.stopTimer();
-    this.props.addPoints(this.calculatePoints());
-    document.querySelector("#message__right").style.display = "block";
-    this.timeout = setTimeout(function() {
-      document.querySelector("#message__right").style.display = "none";
-    }, 3000);
-  };
-  movePiece(piece) {
-    this.props.movePieceSlider(this.props.order, piece);
-    if (
-      JSON.stringify(this.props.order) ===
-      JSON.stringify([null, 1, 2, 3, 4, 5, 6, 7, 8])
-    ) {
-      this.gameIsWon();
-    }
-  }
-  drawPieces = () => {
-    return this.props.order.map(piece => {
-      // the null piece has to be a png, unlike the rest
-      let piecePic;
-      if (piece === null) {
-        piecePic = "empty.png";
-      } else {
-        piecePic = piece + ".jpg";
+  const handleMovePiece = piece => {
+    if (isGameOn) {
+      const newSequence = movePiece(pieces.indexOf(piece), pieces);
+      setPieces(newSequence);
+      const gameWon = isGameWon(pieces);
+      if (gameWon) {
+        console.log("you won");
+        //redux : setPoints(600);
+        setIsGameOn(false);
+        document.getElementById("slider--button").innerHTML = "Start";
       }
-      return (
-        <div className="slider--spot" key={piece}>
-          <img
-            src={`./img/slider/${piecePic}`}
-            onClick={() => this.movePiece(piece)}
-            alt={`piece-${piece}`}
-          />
-        </div>
-      );
-    });
+    }
   };
-  drawBoard = () => {
-    return this.drawPieces();
-  };
-
-  render() {
-    return (
-      <main>
-        <div>
-          <button
-            className="button"
-            id="slider--button"
-            onClick={this.startGame}
-          >
-            start
-          </button>
-        </div>
-        <div className="slider--board">
-          {this.drawBoard()}
-          <div id="message__right" className="message">
-            Good job!
-          </div>
-        </div>
-      </main>
-    );
-  }
-}
-const mapStateToProps = state => {
-  return {
-    time: state.timerReducer,
-    timeWhenStopped: state.timeWhenStopped,
-    points: state.pointsReducer,
-    moves: state.movesReducer,
-    order: state.orderSlider
-  };
+  return (
+    <main className="board">
+      <button onClick={startGame} id="slider--button">
+        Start
+      </button>
+      <SliderBoard movePiece={handleMovePiece} pieces={pieces} />
+    </main>
+  );
 };
-export default connect(
-  mapStateToProps,
-  {
-    startTimer,
-    stopTimer,
-    resetTimer,
-    addPoints,
-    resetPoints,
-    incrementMovement,
-    resetMovement,
-    randomizeSlider,
-    movePieceSlider
-  }
-)(Slider);
+
+export default Slider;

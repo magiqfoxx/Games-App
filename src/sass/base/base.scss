@@ -1,0 +1,34 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+  @media screen and (min-width: $phone-break) {
+    font-size: 110%;
+  }
+  @media screen and (min-width: $tablet-break) {
+    font-size: 120%;
+  }
+  @media screen and (min-width: $big-tablet-break) {
+    font-size: 130%;
+  }
+  @media screen and (min-width: $laptop-break) {
+    font-size: 140%;
+  }
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}

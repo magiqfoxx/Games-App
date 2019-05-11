@@ -1,0 +1,19 @@
+button {
+  width: 5rem;
+  height: 2rem;
+  background-color: transparent;
+  border: 2px solid #808080;
+  margin: 1rem;
+  color: #808080;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #808080;
+    color: white;
+  }
+  &:active {
+    transform: translateX(3px) translateY(3px);
+  }
+}

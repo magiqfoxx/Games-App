@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch } from "react-router";
 import { Route } from "react-router-dom";
-import "./App.css";
+//import "./App.css";
 
 import Navigation from "./components/Nav/Navigation";
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -15,20 +15,18 @@ import Bark from "./components/Bark/Bark";
 import Timer from "./components/Nav/Timer";
 import Points from "./components/Nav/Points";
 
+import Page404 from "./components/Page404";
 class App extends Component {
   render() {
     return (
       <div id="app">
-        <Audio />
         <Navigation />
-        <Timer />
-        <Points />
-        <Sidebar />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Bark} />
           <Route path="/slider" component={Slider} />
           <Route path="/memo" component={Memo} />
           <Route path="/bark" component={Bark} />
+          <Route component={Page404} />
         </Switch>
         <Footer />
       </div>
