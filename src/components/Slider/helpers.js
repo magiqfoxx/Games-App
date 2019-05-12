@@ -12,29 +12,21 @@ export function newSeqNoR(length) {
   }
   return newArr;
 }
-//I don't think this works?
-const isSolvable = order => {
+let isSolvable = order => {
   //only applies to odd-numbered grid widths!
   //find the number of inversion, by counting tiles that preceed another tile with lower number
   //odd number - unsolvable
   //kudos to Tushar Vaghela on Stack
+  const index = order.indexOf(null);
+  let orderCopy = order.slice();
+  orderCopy[index] = 0;
   let totalInversions = 0;
   for (let i = 0; i <= order.length; i++) {
-    if (order[i] === null) {
-      continue;
-    } else {
-      for (let j = i; j <= order.length; j++) {
-        if (order[j] < order[i]) {
-          totalInversions++;
-        }
-      }
+    if (i < 9 && orderCopy[i] > orderCopy[i + 1]) {
+      totalInversions++;
     }
   }
-  if (totalInversions % 2 === 0) {
-    return true;
-  } else {
-    return false;
-  }
+  return totalInversions % 2 === 0;
 };
 export const shuffle = array => {
   let newArr;
@@ -74,7 +66,7 @@ export const movePiece = (spot, order) => {
   }
 };
 
-export const isGameWon = sequence => {
+export const checkIfGameWon = sequence => {
   if (
     JSON.stringify(sequence) === JSON.stringify([null, 1, 2, 3, 4, 5, 6, 7, 8])
   ) {

@@ -5,7 +5,7 @@ import "./Home.css";
 
 const Home = () => {
   return (
-    <div className="board" id="board__empty">
+    <main className="board" id="board__empty">
       <h1>Welcome. Please choose your game.</h1>
       <ul>
         <li>
@@ -18,7 +18,7 @@ const Home = () => {
           <Link to="/bark">Bark</Link>
         </li>
       </ul>
-    </div>
+    </main>
   );
 };
 

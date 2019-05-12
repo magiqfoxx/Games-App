@@ -4,16 +4,12 @@ import { Route } from "react-router-dom";
 //import "./App.css";
 
 import Navigation from "./components/Nav/Navigation";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Audio from "./components/Nav/Audio";
 import Footer from "./components/Footer";
 
 import Home from "./components/Home/Home";
 import Slider from "./components/Slider/Slider";
 import Memo from "./components/Memo/Memo";
 import Bark from "./components/Bark/Bark";
-import Timer from "./components/Nav/Timer";
-import Points from "./components/Nav/Points";
 
 import Page404 from "./components/Page404";
 class App extends Component {
@@ -22,7 +18,7 @@ class App extends Component {
       <div id="app">
         <Navigation />
         <Switch>
-          <Route exact path="/" component={Bark} />
+          <Route exact path="/" component={Home} />
           <Route path="/slider" component={Slider} />
           <Route path="/memo" component={Memo} />
           <Route path="/bark" component={Bark} />

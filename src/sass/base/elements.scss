@@ -17,3 +17,19 @@ button {
     transform: translateX(3px) translateY(3px);
   }
 }
+#timer {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+#message {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  h1 {
+    padding: 2rem 3rem;
+    background-color: white;
+  }
+}

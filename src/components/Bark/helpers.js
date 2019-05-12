@@ -22,11 +22,11 @@ export const shuffle = array => {
   }, []);
   return newArr;
 };
-export const isGameWon = array => {
+export const checkIfGameWon = array => {
   return array.length > 7;
 };
 
-export const playElement = element => {
+export const playBark = element => {
   const audio = new Audio(`../audio/bark/${element}.mp3`);
   audio.play();
 };

@@ -7,35 +7,35 @@ import {
   timeWhenStopped
 } from "../../actions";
 
+import { formatTime } from "./helper";
+
 class Timer extends Component {
   state = { time0: 0, hours: 0, minutes: 0, seconds: 0 };
   timeInterval;
 
-  formatTime = (hours, minutes, seconds) => {
-    if (hours < 1 && minutes < 1) {
-      return `${seconds} s.`;
-    } else if (hours < 1) {
-      return `${minutes}min. and ${seconds}s.`;
-    } else {
-      return `${hours}h. ${minutes}min. and ${seconds}s.`;
-    }
-  };
-  setTime = timeNow => {
-    console.log(this.props.time);
-    //sets the hours, minutes and seconds
+  calculateTime = timeNow => {
     let msPassed = timeNow - this.state.time0;
     let hours = Math.floor(msPassed / 1000 / 60 / 60);
     let minutes = Math.floor((msPassed / 1000 / 60) % 60);
     if (this.state.seconds >= 59) {
       this.setState({ seconds: -1 });
-    }
-    let seconds = this.state.seconds + 1; //floor is wrong sometimes
+    } //floor is wrong sometimes
+    let seconds = this.state.seconds + 1;
     //let seconds = Math.floor((msPassed / 1000) % 60);
-    console.log(this.state);
+    return [hours, minutes, seconds];
+  };
+  setTime = timeNow => {
+    //sets the hours, minutes and seconds
+    //based on time when timer was started and time now
+    const time = this.calculateTime(timeNow);
     //this throws an error
-    this.setState({ hours, minutes, seconds });
     this.setState({
-      timeNow: this.formatTime(
+      hours: time[0],
+      minutes: time[1],
+      seconds: time[2]
+    });
+    this.setState({
+      timeNow: formatTime(
         this.state.hours,
         this.state.minutes,
         this.state.seconds
@@ -43,6 +43,7 @@ class Timer extends Component {
     });
   };
   setTime0 = () => {
+    //gets the current time when timer is started
     this.setState({ time0: new Date().getTime() });
   };
 
@@ -51,7 +52,14 @@ class Timer extends Component {
       this.setTime(new Date().getTime());
     }, 1000);
   };
+
   startTimer = () => {
+    /*this.setState = {
+      time0: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    }; //???*/
     //initiates time0 and sets up the timeinterval
     this.setTime0();
     this.getTimeNow();
@@ -59,24 +67,22 @@ class Timer extends Component {
   stopTimer = () => {
     //this works
     clearInterval(this.timeInterval);
-    this.props.timeWhenStopped(
-      this.state.hours * 60 + this.state.minutes * 60 + this.state.seconds
+    this.props.getTWS(
+      formatTime(this.state.hours, this.state.minutes, this.state.seconds)
     );
+    this.setState({
+      timeWhenStopped: formatTime(
+        this.state.hours,
+        this.state.minutes,
+        this.state.seconds
+      )
+    });
+    this.setState({ hours: 0, minutes: 0, seconds: 0, timeNow: "" });
   };
-  resetTimer = () => {
-    clearInterval(this.timeInterval);
-    //this doesn't work????
-    this.setState = {
-      time0: 0,
-      timeNow: "",
-      hours: 0,
-      minutes: 0,
-      seconds: 0
-    };
-  };
+
   componentWillUnmount = () => {
-    //it unmounts when restarted?
     console.log("unmount");
+    clearInterval(this.timeInterval);
   };
   componentDidUpdate(oldProps) {
     //thx u/charliematters
@@ -85,8 +91,6 @@ class Timer extends Component {
     if (oldProps.time !== newProps.time) {
       if (this.props.time === true) {
         this.startTimer();
-      } else if (this.props.time === "reset") {
-        this.resetTimer();
       } else if (this.props.time === false) {
         this.stopTimer();
       }
