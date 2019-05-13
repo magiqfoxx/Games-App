@@ -27,9 +27,13 @@ const Bark = props => {
   const [timeWhenStopped, setTimeWhenStopped] = useState(0);
   const [moves, setMoves] = useState(0);
 
-  const startGame = () => {
+  const reset = () => {
     props.stopTimer();
     setMoves(0);
+    setIsGameWon(false);
+  };
+  const startGame = () => {
+    reset();
 
     const newOrder = shuffle([0, 1, 2]);
     setOrder(newOrder);
@@ -100,20 +104,28 @@ const Bark = props => {
   const handleGettingTWS = time => {
     setTimeWhenStopped(time);
   };
+  const closeMessage = () => {
+    setIsGameWon(false);
+  };
   return (
     <main className="board">
-      <div>
+      <div id="game--info">
+        <Timer getTWS={handleGettingTWS} />
         <span id="memo--points">{props.points}pts</span>
         <span id="memo--points">{moves} moves</span>
-        <h2 id="memo--time" />
       </div>
 
       <button onClick={startGame} id="bark--button">
         Start
       </button>
       <BarkBoard order={board} handleClick={handleClick} />
-      <Timer getTWS={handleGettingTWS} />
-      {isGameWon ? <WinningMessage timeWhenStopped={timeWhenStopped} /> : null}
+
+      {isGameWon ? (
+        <WinningMessage
+          timeWhenStopped={timeWhenStopped}
+          handleClose={closeMessage}
+        />
+      ) : null}
     </main>
   );
 };

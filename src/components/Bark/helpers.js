@@ -27,14 +27,24 @@ export const checkIfGameWon = array => {
 };
 
 export const playBark = element => {
-  const audio = new Audio(`../audio/bark/${element}.mp3`);
+  const audio = new Audio(`./audio/bark/${element}.mp3`);
   audio.play();
 };
 
 export const addClassPlaying = element => {
-  document.getElementById(`bark--piece-${element}`).classList.add("playing");
+  try {
+    document.getElementById(`bark--piece-${element}`).classList.add("playing");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const removeClassPlaying = element => {
-  document.getElementById(`bark--piece-${element}`).classList.remove("playing");
+  try {
+    document
+      .getElementById(`bark--piece-${element}`)
+      .classList.remove("playing");
+  } catch (error) {
+    console.log(error);
+  }
 };

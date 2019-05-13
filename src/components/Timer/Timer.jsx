@@ -81,9 +81,10 @@ class Timer extends Component {
   };
 
   componentWillUnmount = () => {
-    console.log("unmount");
     clearInterval(this.timeInterval);
+    this.props.stopTimer();
   };
+
   componentDidUpdate(oldProps) {
     //thx u/charliematters
     const newProps = this.props;

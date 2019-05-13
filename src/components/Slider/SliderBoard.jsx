@@ -9,7 +9,7 @@ const SliderBoard = props => {
       if (piece) {
         return (
           <img
-            src={`../../img/slider/${piece}.jpg`}
+            src={`./img/slider/${piece}.jpg`}
             className="slider--piece"
             key={piece}
             onClick={() => props.movePiece(piece)}
@@ -19,7 +19,7 @@ const SliderBoard = props => {
       } else {
         return (
           <img
-            src={`../../img/slider/empty.png`}
+            src={`./img/slider/empty.png`}
             className="slider--piece"
             key={piece}
             alt="empty space"

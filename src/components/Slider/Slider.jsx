@@ -15,9 +15,13 @@ const Slider = props => {
   const [moves, setMoves] = useState(0);
   const [isGameWon, setIsGameWon] = useState(false);
 
-  const startGame = () => {
+  const reset = () => {
+    setIsGameWon(false);
     props.stopTimer();
     setMoves(0);
+  };
+  const startGame = () => {
+    reset();
     props.startTimer();
     setIsGameOn(true);
 
@@ -37,27 +41,32 @@ const Slider = props => {
         setIsGameOn(false);
         setIsGameWon(true);
         document.getElementById("slider--button").innerHTML = "Start";
-        document.getElementById("memo--time").innerHTML = timeWhenStopped;
       }
     }
   };
   const handleGettingTWS = time => {
     setTimeWhenStopped(time);
   };
+  const closeMessage = () => {
+    setIsGameWon(false);
+  };
   return (
     <main className="board">
-      <div>
+      <div id="game--info">
+        <Timer getTWS={handleGettingTWS} />
         <span id="memo--points">{props.points}pts</span>
         <span id="memo--points">{moves} moves</span>
-        <h2 id="memo--time" />
       </div>
-
       <button onClick={startGame} id="slider--button">
         Start
       </button>
       <SliderBoard movePiece={handleMovePiece} pieces={sequence} />
-      <Timer getTWS={handleGettingTWS} />
-      {isGameWon ? <WinningMessage timeWhenStopped={timeWhenStopped} /> : null}
+      {isGameWon ? (
+        <WinningMessage
+          timeWhenStopped={timeWhenStopped}
+          handleClose={closeMessage}
+        />
+      ) : null}
     </main>
   );
 };

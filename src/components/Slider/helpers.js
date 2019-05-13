@@ -53,11 +53,11 @@ export const movePiece = (spot, order) => {
     newOrder[spot] = null;
     newOrder[spot + 3] = order[spot];
     return newOrder;
-  } else if (order[spot - 1] === null) {
+  } else if (order[spot - 1] === null && spot != 3 && spot != 6) {
     newOrder[spot] = null;
     newOrder[spot - 1] = order[spot];
     return newOrder;
-  } else if (order[spot + 1] === null) {
+  } else if (order[spot + 1] === null && spot != 2 && spot != 5) {
     newOrder[spot] = null;
     newOrder[spot + 1] = order[spot];
     return newOrder;

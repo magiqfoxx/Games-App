@@ -5,13 +5,13 @@ const MemoPiece = props => {
     return (
       <React.Fragment>
         <img
-          src={`../img/${props.piece}.jpg`}
+          src={`./img/${props.piece}.jpg`}
           className="memo--piece__front"
-          alt="dog"
+          alt={`dog-${props.piece}`}
         />
 
         <img
-          src={`../img/back.jpg`}
+          src={`./img/back.jpg`}
           className="memo--piece__back"
           alt="back"
           onClick={() => props.onFlip(props.piece, props.spot)}
