@@ -2,7 +2,7 @@ export function randomize(order) {
   let orderCopy = [...order];
   let newOrder = [];
   let index;
-  order.map(element => {
+  order.forEach(element => {
     index = Math.floor(Math.random() * orderCopy.length + 0);
     newOrder.push(orderCopy[index]);
     orderCopy.splice(index, 1);

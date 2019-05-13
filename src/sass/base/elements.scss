@@ -1,0 +1,41 @@
+button {
+  width: 5rem;
+  height: 2rem;
+  background-color: transparent;
+  border: 1px solid #3c3c3c;
+  margin: 1rem;
+  margin-top: 2rem;
+  color: #3c3c3c;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #3c3c3c;
+    color: white;
+  }
+  &:active {
+    transform: translateX(3px) translateY(3px);
+  }
+}
+#timer {
+  display: inline;
+}
+#message {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    padding: 2rem 3rem;
+    background-color: white;
+  }
+}
+audio {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 1rem;
+}

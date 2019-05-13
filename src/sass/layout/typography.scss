@@ -1,0 +1,17 @@
+span {
+  margin: 1rem;
+}
+nav {
+  ul li {
+    border-bottom: 1px solid transparent;
+    &:hover {
+      border-bottom: 1px solid #3c3c3c;
+    }
+  }
+}
+main ul li {
+  border-bottom: 2px solid transparent;
+  &:hover {
+    border-bottom: 2px solid #3c3c3c;
+  }
+}

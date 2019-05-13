@@ -1,165 +1,140 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react";
 import {
-  startTimer,
-  stopTimer,
-  resetTimer,
-  addPoints,
-  resetPoints,
-  incrementMovement,
-  resetMovement,
-  upLevel,
-  resetLevel,
-  setNewOrderBark,
-  randomizeOrderBark,
-  addToOrderBark,
-  addToSeqBark,
-  resetSeqBark
-} from "../../actions";
+  shuffle,
+  checkIfGameWon,
+  playBark,
+  addClassPlaying,
+  removeClassPlaying
+} from "./helpers";
+import BarkBoard from "./BarkBoard";
+import WinningMessage from "../WinningMessage";
 
-import "./Bark.css";
+import Timer from "../Timer/Timer";
+import { connect } from "react-redux";
+import { startTimer, stopTimer, addPoints } from "../../actions";
 
-/* For clarity, 
-"order" = sequence that's to be guessed 
-"seq" = what's guessed so far */
+//hard with no colors? and no scale
+//mid no colors?
+const Bark = props => {
+  //order is what you're guessing
+  //sequence is what you've guessed so far
+  const [board, setBoard] = useState([0, 1, 2]);
+  const [order, setOrder] = useState([0, 1, 2]);
+  const [sequence, setSequence] = useState([]);
+  const [isGameOn, setIsGameOn] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isGameWon, setIsGameWon] = useState(false);
+  const [timeWhenStopped, setTimeWhenStopped] = useState(0);
+  const [moves, setMoves] = useState(0);
 
-/* Try this with hooks?
-order changes but it plays the same */
-class Bark extends Component {
-  state = {};
-  timeOut;
-  componentDidMount = () => {};
-  componentWillUnmount = () => {
-    clearTimeout(this.timeOut);
-    this.props.stopTimer();
-    //this.props.resetTimer();
-    this.props.resetMovement();
-    this.props.resetLevel();
+  const reset = () => {
+    props.stopTimer();
+    setMoves(0);
+    setIsGameWon(false);
   };
-  start = () => {
-    this.props.setNewOrderBark(this.props.level);
-    this.props.randomizeOrderBark();
-    document.querySelector("#bark--button").innerHTML = "reset";
-    this.props.stopTimer();
-    //this.props.resetTimer();
-    this.props.startTimer();
-    this.playRound();
-  };
-  play = (piece, index) => {
-    const audio = new Audio(`/audio/bark/${piece}.mp3`);
-    audio.play();
-    this.timeOut = setTimeout(() => {
-      document
-        .querySelector(`#piece-${piece}`)
-        .classList.remove("playing", `playing-${piece}`);
-    }, 1500);
-    //to get rid of an error when component is unmounted before timeout finishes
-    return document.querySelector(`#piece-${piece}`)
-      ? document
-          .querySelector(`#piece-${piece}`)
-          .classList.add("playing", `playing-${piece}`)
-      : null;
-  };
+  const startGame = () => {
+    reset();
 
-  playRound = () => {
-    console.log("round", this.props.order);
-    this.props.order.map((piece, index) => {
-      this.timeOut = setTimeout(() => {
-        this.play(piece, index);
-      }, 1500 * index);
-      document
-        .querySelector(`#piece-${piece}`)
-        .classList.remove("playing", `playing-${piece}`);
-    });
+    const newOrder = shuffle([0, 1, 2]);
+    setOrder(newOrder);
+    document.getElementById("bark--button").innerHTML = "Reset";
+    setIsGameOn(true);
+    //state update is delayed
+    playOrder(newOrder);
+    props.startTimer();
   };
-  gameIsWon = () => {
-    this.props.stopTimer();
-    this.props.addPoints(100);
-    console.log("game is won");
-    document.querySelector("#message__right").style.display = "block";
-    this.timeOut = setTimeout(() => {
-      document.querySelector("#message__right").style.display = "none";
-      this.props.resetSeqBark();
-      this.props.upLevel(this.props.level);
-      this.start();
-    }, 3000);
-  };
-  guessSequence = (piece, index) => {
-    //there is a mutation of order state between playRound and first click
-    this.props.incrementMovement();
-    this.play(piece);
-    let guessedSequence = this.props.guessedSequence;
-    guessedSequence.push(piece);
-    console.log(piece, this.props.guessedSequence);
-
-    if (JSON.stringify(guessedSequence) === JSON.stringify(this.props.order)) {
-      this.gameIsWon();
-    } else if (
-      JSON.stringify(guessedSequence) ===
-      JSON.stringify(this.props.order.slice(0, guessedSequence.length))
-    ) {
-      //so far so good
-      console.log(index);
-      this.props.addToSeqBark(piece);
-      console.log("current seq ", this.props.order);
-      console.log("seq guessed so far ", this.props.guessedSequence);
+  const nextRound = () => {
+    if (checkIfGameWon(order)) {
+      setIsGameWon(true);
+      props.addPoints(700);
+      setIsGameOn(false);
+      props.stopTimer();
+      document.getElementById("bark--button").innerHTML = "Start";
     } else {
-      //wrong
-      document.querySelector("#message__wrong").style.display = "block";
-      this.timeOut = setTimeout(() => {
-        document.querySelector("#message__wrong").style.display = "none";
-        this.props.resetSeqBark();
-        this.playRound();
-      }, 2000);
-      console.log("wrong");
+      //add next element to the order
+      const newBoard = [...board, board.length];
+      setBoard(newBoard);
+      const newOrder = shuffle(newBoard);
+      setOrder(newOrder);
+      setTimeout(() => {
+        playOrder(newOrder);
+      }, 1000);
     }
   };
-  drawBoard = () => {
-    return this.props.order.map((piece, index) => {
-      return (
-        <img
-          src={`./img/${piece}.jpg`}
-          key={piece}
-          onClick={() => this.guessSequence(piece, index)}
-          id={`piece-${piece}`}
-          alt={`puppy-${piece}`}
-        />
-      );
+  const playElement = (element, index = 0) => {
+    //play audio
+    setTimeout(() => {
+      playBark(element);
+      addClassPlaying(element);
+    }, 1500 * index);
+    setTimeout(() => {
+      removeClassPlaying(element);
+      //remove the isPlaying label on last piece in order to make pieces clickable again
+      if (index === order.length - 1) {
+        setIsPlaying(false);
+      }
+    }, 1000 + 1500 * index);
+  };
+  const playOrder = order => {
+    setIsPlaying(true);
+    return order.forEach((element, index) => {
+      playElement(element, index);
     });
   };
+  const handleClick = piece => {
+    setMoves(moves + 1);
+    //piece is the picture/sound
+    if (isGameOn && !isPlaying) {
+      playElement(piece);
+      if (piece === order[sequence.length]) {
+        //correct
+        setSequence([...sequence, piece]);
+        //state update is delayed
+        if (JSON.stringify([...sequence, piece]) == JSON.stringify(order)) {
+          props.addPoints(100);
+          nextRound();
+        }
+      } else {
+        //wrong guess
+        setSequence([]);
+        playOrder(order);
+      }
+    }
+  };
+  const handleGettingTWS = time => {
+    setTimeWhenStopped(time);
+  };
+  const closeMessage = () => {
+    setIsGameWon(false);
+  };
+  return (
+    <main className="board">
+      <div id="game--info">
+        <Timer getTWS={handleGettingTWS} />
+        <span id="memo--points">{props.points}pts</span>
+        <span id="memo--points">{moves} moves</span>
+      </div>
 
-  render() {
-    return (
-      <main>
-        <div className="bark--nav">
-          <button className="button" id="bark--button" onClick={this.start}>
-            start
-          </button>
-          <span>moves: {this.props.moves}</span>
-        </div>
-        <div className="bark--board" id="bark--board">
-          {this.drawBoard()}
-          <div id="message__wrong" className="message">
-            Wrong
-          </div>
-          <div id="message__right" className="message">
-            Good job!
-          </div>
-        </div>
-      </main>
-    );
-  }
-}
+      <button onClick={startGame} id="bark--button">
+        Start
+      </button>
+      <BarkBoard order={board} handleClick={handleClick} />
+
+      {isGameWon ? (
+        <WinningMessage
+          timeWhenStopped={timeWhenStopped}
+          handleClose={closeMessage}
+        />
+      ) : null}
+    </main>
+  );
+};
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     time: state.time,
-    points: state.pointsReducer,
-    moves: state.movesReducer,
-    level: state.level,
-    order: state.orderBark,
-    guessedSequence: state.guessedSeqBark
+    timeWhenStopped: state.timeWhenStopped,
+    points: state.points
   };
 };
 export default connect(
@@ -167,17 +142,6 @@ export default connect(
   {
     startTimer,
     stopTimer,
-    resetTimer,
-    addPoints,
-    resetPoints,
-    incrementMovement,
-    resetMovement,
-    upLevel,
-    resetLevel,
-    setNewOrderBark,
-    randomizeOrderBark,
-    addToOrderBark,
-    addToSeqBark,
-    resetSeqBark
+    addPoints
   }
 )(Bark);

@@ -1,0 +1,33 @@
+nav {
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ul li {
+    display: inline;
+    list-style: none;
+    margin: 0 1rem;
+  }
+}
+main {
+  min-height: calc(100vh - 10rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    margin: 1rem;
+  }
+  ul li {
+    list-style: none;
+    margin: 1rem;
+    font-size: 2rem;
+  }
+}
+footer {
+  height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

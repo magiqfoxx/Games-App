@@ -1,0 +1,684 @@
+@font-face {
+  font-family: "Kaushan Script";
+  src: url(../fonts/KaushanScript-Regular.otf) format("opentype");
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #FFFFFF;
+  padding: 3rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.main-section--logo {
+  font-family: "Kaushan Script";
+  font-size: 22rem;
+  letter-spacing: 0.5rem;
+  color: #DEFFFC;
+}
+
+@media screen and (min-width: 400px) {
+  .main-section--logo {
+    font-size: 16rem;
+  }
+}
+
+@media screen and (min-width: 450px) {
+  .main-section--logo {
+    font-size: 12rem;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .main-section--logo {
+    font-size: 7rem;
+  }
+}
+
+.section--title {
+  text-align: center;
+  font-family: "Cookie";
+  font-size: 20rem;
+  font-weight: 300;
+  color: #E02262;
+}
+
+@media screen and (min-width: 450px) {
+  .section--title {
+    font-size: 15rem;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .section--title {
+    font-size: 10rem;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .section--title {
+    font-size: 6rem;
+  }
+}
+
+.main-section--motto {
+  font-size: 19.5rem;
+  color: #FFFFFF;
+  text-align: left;
+}
+
+@media screen and (min-width: 400px) {
+  .main-section--motto {
+    font-size: 16rem;
+  }
+}
+
+@media screen and (min-width: 450px) {
+  .main-section--motto {
+    font-size: 10rem;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .main-section--motto {
+    font-size: 9.5rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .main-section--motto {
+    font-size: 9rem;
+  }
+}
+
+.main-section--nav {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.main-section--nav li {
+  font-size: 10rem;
+}
+
+@media screen and (min-width: 400px) {
+  .main-section--nav li {
+    font-size: 8rem;
+  }
+}
+
+@media screen and (min-width: 450px) {
+  .main-section--nav li {
+    font-size: 7rem;
+  }
+}
+
+@media screen and (min-width: 510px) {
+  .main-section--nav li {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .main-section--nav li {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .main-section--nav li {
+    font-size: 1rem;
+  }
+}
+
+.offer-section--card .offer-section--card--text {
+  color: #86626E;
+  font-size: 10rem;
+}
+
+@media screen and (min-width: 450px) {
+  .offer-section--card .offer-section--card--text {
+    font-size: 6rem;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .offer-section--card .offer-section--card--text {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .offer-section--card .offer-section--card--text {
+    font-size: 2rem;
+  }
+}
+
+.reviews-section--slate span {
+  color: #86626E;
+}
+
+.booking-section {
+  color: #86626E;
+  font-size: 3rem;
+  line-height: 7rem;
+}
+
+.booking-section .booking-section--text {
+  font-size: 10rem;
+}
+
+@media screen and (min-width: 450px) {
+  .booking-section .booking-section--text {
+    font-size: 4rem;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .booking-section .booking-section--text {
+    font-size: 2.5rem;
+  }
+}
+
+.booking-section--button {
+  font-family: "Kaushan Script";
+  color: #E02262;
+  font-size: 6rem;
+  font-weight: 100;
+}
+
+footer {
+  color: #FFFFFF;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+html {
+  font-size: 15%;
+  scroll-behavior: smooth;
+}
+
+@media screen and (min-width: 400px) {
+  html {
+    font-size: 20%;
+  }
+}
+
+@media screen and (min-width: 450px) {
+  html {
+    font-size: 30%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  html {
+    font-size: 62.5%;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 800px) {
+  .offer-section--card {
+    display: inline-block;
+    min-height: 45rem;
+    max-width: 20vw;
+    margin: 0 4vw;
+    background-color: rgba(219, 175, 193, 0.2);
+    -webkit-transform: rotate(10deg);
+            transform: rotate(10deg);
+    -webkit-box-shadow: 5px 7px 10px 0px rgba(0, 0, 0, 0.25);
+            box-shadow: 5px 7px 10px 0px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .offer-section--card {
+    min-height: 35rem;
+    max-width: 20vw;
+    margin: 0 6vw;
+  }
+}
+
+.offer-section--card img {
+  display: none;
+}
+
+@media screen and (min-width: 800px) {
+  .offer-section--card img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .offer-section--card img {
+    max-width: 20vw;
+  }
+}
+
+.offer-section--card .offer-section--card--text {
+  margin: 0 2rem;
+  padding-top: 2rem;
+}
+
+@media screen and (min-width: 800px) {
+  .offer-section--card .offer-section--card--text {
+    -webkit-transform: rotate(-5deg);
+            transform: rotate(-5deg);
+    margin: 1rem 1.7rem 0 2rem;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .offer-section--card .offer-section--card--text {
+    margin: 1rem 1.7rem 0 2rem;
+  }
+}
+
+.reviews-section--slate {
+  margin: 3rem;
+  height: 20rem;
+  padding-top: 2rem;
+  background-color: white;
+  border-radius: 30px;
+  -webkit-box-shadow: 7px 10px 7px 0px rgba(0, 0, 0, 0.3);
+          box-shadow: 7px 10px 7px 0px rgba(0, 0, 0, 0.3);
+  font-style: italic;
+}
+
+@media screen and (min-width: 450px) {
+  .reviews-section--slate {
+    margin: 6rem auto;
+    padding: 1rem;
+    max-width: 100vw;
+    min-height: 6rem;
+    height: 15vh;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .reviews-section--slate {
+    padding: 2rem;
+    padding-top: 1.5rem;
+    min-height: 4rem;
+    height: 10vh;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .reviews-section--slate {
+    padding: 1rem;
+    width: 70vw;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .reviews-section--slate {
+    max-width: 60vw;
+  }
+}
+
+.reviews-section--slate img {
+  display: none;
+  max-width: 10rem;
+}
+
+@media screen and (min-width: 800px) {
+  .reviews-section--slate img {
+    display: block;
+    border-radius: 30px;
+    float: right;
+    margin-top: -0.2rem;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .reviews-section--slate img {
+    float: right;
+    margin-top: -0.6rem;
+  }
+}
+
+.reviews-section--slate span {
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media screen and (min-width: 1300px) {
+  .reviews-section--slate span {
+    width: 100%;
+    text-align: right;
+    padding-right: 3rem;
+  }
+}
+
+section {
+  min-height: 100vh;
+  display: block;
+}
+
+.main-section {
+  background-image: -webkit-gradient(linear, right bottom, left top, from(rgba(255, 255, 255, 0.2)), to(rgba(0, 0, 0, 0.6))), url(../img/mains.jpg);
+  background-image: linear-gradient(to left top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.6)), url(../img/mains.jpg);
+  background-size: cover;
+  background-position: bottom;
+}
+
+.main-section .main-section--logo {
+  display: inline-block;
+  margin-top: 5vh;
+  margin-left: 7vw;
+}
+
+.main-section .main-section--nav {
+  display: block;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 450px) {
+  .main-section .main-section--nav {
+    margin-top: 3rem;
+  }
+}
+
+@media screen and (min-width: 510px) {
+  .main-section .main-section--nav {
+    float: right;
+    margin-top: 1rem;
+  }
+}
+
+.main-section .main-section--nav ul {
+  list-style-type: none;
+}
+
+.main-section .main-section--nav li {
+  padding: 1rem 3rem;
+}
+
+@media screen and (min-width: 510px) {
+  .main-section .main-section--nav li {
+    display: inline;
+    padding: 1rem;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .main-section .main-section--nav li {
+    padding: 1rem 3rem;
+  }
+}
+
+.main-section .main-section--nav li:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.main-section .main-section--motto {
+  background-color: rgba(219, 175, 193, 0.5);
+  margin: 1rem 2rem;
+  width: 92vw;
+}
+
+@media screen and (min-width: 510px) {
+  .main-section .main-section--motto {
+    margin-left: 5rem;
+    margin-top: 40vh;
+    max-width: 75vw;
+    clear: both;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .main-section .main-section--motto {
+    margin-top: 40vh;
+    max-width: 75vw;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .main-section .main-section--motto {
+    margin-top: 32vh;
+    max-width: 75vw;
+  }
+}
+
+section.offer-section {
+  padding: 8rem;
+}
+
+section.offer-section .section--title {
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 10px;
+  margin-top: 4rem;
+  margin-bottom: 7rem;
+}
+
+@media screen and (min-width: 800px) {
+  section.offer-section .offer-section--cards {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
+section.offer-section .offer-section--card--text {
+  margin-bottom: 4rem;
+  background-color: rgba(219, 175, 193, 0.2);
+  min-height: 14vh;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (min-width: 800px) {
+  section.offer-section .offer-section--card--text {
+    background-color: transparent;
+    min-height: 0;
+  }
+}
+
+section.reviews-section {
+  background-image: url(../img/reviews.jpg);
+  background-size: cover;
+  background-position: left;
+  padding: 5rem;
+}
+
+section.reviews-section .reviews-section--slates {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+section.reviews-section .reviews-section--slates .reviews-section--slate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+section.reviews-section .reviews-section--slates .reviews-section--slate span {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+section.booking-section {
+  padding: 6rem;
+  background-color: #dbafc12e;
+  background-image: url(../img/booking.jpg);
+  background: -webkit-gradient(linear, left top, left bottom, from(#dbafc1ba), to(#dbafc1ba)), url(../img/booking.jpg);
+  background: linear-gradient(#dbafc1ba, #dbafc1ba), url(../img/booking.jpg);
+  background-size: cover;
+}
+
+@media screen and (min-width: 1300px) {
+  section.booking-section {
+    padding: 20rem 15rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  section.booking-section {
+    padding: 10rem;
+  }
+}
+
+section.booking-section .booking-section--map {
+  display: block;
+  margin: 0 auto;
+  width: 60vw;
+  border-radius: 11px;
+  /*box-shadow: 7px 9px 10px #ab929c;*/
+}
+
+@media screen and (min-width: 800px) {
+  section.booking-section .booking-section--map {
+    display: inline-block;
+    float: right;
+    max-width: 40vw;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  section.booking-section .booking-section--map {
+    max-width: 30vw;
+  }
+}
+
+section.booking-section .booking-section--text {
+  margin: 3rem;
+  margin-bottom: 5rem;
+  line-height: 10rem;
+  background-color: rgba(255, 255, 255, 0.38);
+  border: 20px solid #dbafc11c;
+  border-radius: 20px;
+}
+
+@media screen and (min-width: 450px) {
+  section.booking-section .booking-section--text {
+    display: inline-block;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  section.booking-section .booking-section--text {
+    float: left;
+    max-width: 40vw;
+    margin-bottom: 10rem;
+  }
+}
+
+section.booking-section .booking-section--button {
+  width: 40rem;
+  height: 20rem;
+  margin: 0rem auto;
+  display: block;
+  clear: both;
+  background-color: #DBAFC1;
+  border: 1px solid #E02262;
+  border-radius: 4px;
+}
+
+section.booking-section .booking-section--button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: 1s;
+  transition: 1s;
+  background-color: #E02262;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+footer {
+  padding: 2rem 20rem;
+  min-height: 20rem;
+  background-color: white;
+  color: #E02262;
+}
+
+footer .footer--nav ul {
+  list-style-type: none;
+}
+
+@media screen and (min-width: 450px) {
+  footer .footer--nav ul {
+    float: right;
+  }
+}
+
+footer .footer--address {
+  display: inline-block;
+}
+
+@media screen and (min-width: 450px) {
+  footer .footer--address {
+    max-width: 30vw;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  footer .footer--address {
+    width: 40rem;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  footer .footer--address {
+    width: 20rem;
+  }
+}
+
+footer .footer--span {
+  text-align: center;
+  display: block;
+  clear: both;
+}
+/*# sourceMappingURL=main.css.map */

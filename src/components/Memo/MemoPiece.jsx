@@ -1,53 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
 
-class MemoPiece extends Component {
-  state = {};
-
-  turn = () => {
-    this.props.pieceIsTurned(this.props.id);
-  };
-
-  renderContent = () => {
-    let front = (
-      <img
-        className="front"
-        src="img/front.jpg"
-        onClick={this.turn}
-        alt="front"
-        key={`front-${this.props.piece}`}
-      />
-    );
-    let back = (
-      <img
-        src={`img/${this.props.piece}.jpg`}
-        alt={`${this.props.piece}`}
-        key={this.props.id}
-      />
-    );
-    if (this.props.pairsFound.includes(this.props.piece)) {
-      //this piece has been found
-      //time delay not working here
-      setTimeout(() => {
-        return null;
-      }, 1000);
-    } else if (!this.props.turned) {
-      return [front, back];
-    } else {
-      return back;
-    }
-  };
-  render() {
+const MemoPiece = props => {
+  const renderPiece = () => {
     return (
-      <div
-        className="board-memo__card"
-        id={`card-${this.props.id}`}
-        key={`card-${this.props.id}`}
-      >
-        {" "}
-        {this.renderContent()}
-      </div>
+      <React.Fragment>
+        <img
+          src={`./img/${props.piece}.jpg`}
+          className="memo--piece__front"
+          alt={`dog-${props.piece}`}
+        />
+
+        <img
+          src={`./img/back.jpg`}
+          className="memo--piece__back"
+          alt="back"
+          onClick={() => props.onFlip(props.piece, props.spot)}
+        />
+      </React.Fragment>
     );
-  }
-}
+  };
+  return (
+    <div className="memo--piece" id={`memo--spot-${props.spot}`}>
+      {renderPiece()}
+    </div>
+  );
+};
 
 export default MemoPiece;

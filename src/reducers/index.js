@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { randomize, movePiece } from "./helpers";
 
-const timer = (time = 0, action) => {
+const timer = (time = false, action) => {
   /* Stop: stops  and resets the timer
   Start: resets and starts the timer */
   if (action.type === "START_TIMER") {
