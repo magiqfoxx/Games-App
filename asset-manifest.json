@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Games-app/static/css/main.c76cae52.chunk.css",
+    "main.js": "/Games-app/static/js/main.5238748e.chunk.js",
+    "main.js.map": "/Games-app/static/js/main.5238748e.chunk.js.map",
+    "runtime-main.js": "/Games-app/static/js/runtime-main.c1acbcfd.js",
+    "runtime-main.js.map": "/Games-app/static/js/runtime-main.c1acbcfd.js.map",
+    "static/js/2.1c8e9be8.chunk.js": "/Games-app/static/js/2.1c8e9be8.chunk.js",
+    "static/js/2.1c8e9be8.chunk.js.map": "/Games-app/static/js/2.1c8e9be8.chunk.js.map",
+    "index.html": "/Games-app/index.html",
+    "static/css/main.c76cae52.chunk.css.map": "/Games-app/static/css/main.c76cae52.chunk.css.map",
+    "static/js/2.1c8e9be8.chunk.js.LICENSE.txt": "/Games-app/static/js/2.1c8e9be8.chunk.js.LICENSE.txt",
+    "static/media/audio.effbdda4.mp3": "/Games-app/static/media/audio.effbdda4.mp3",
+    "static/media/Slider.css": "/Games-app/static/media/bck.222cfb30.jpg",
+    "static/media/App.css": "/Games-app/static/media/bck.2c54d125.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c1acbcfd.js",
+    "static/js/2.1c8e9be8.chunk.js",
+    "static/css/main.c76cae52.chunk.css",
+    "static/js/main.5238748e.chunk.js"
+  ]
+}
