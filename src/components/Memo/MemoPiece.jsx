@@ -1,17 +1,17 @@
 import React from "react";
 
-const MemoPiece = props => {
+const MemoPiece = (props) => {
   const renderPiece = () => {
     return (
       <React.Fragment>
         <img
-          src={`./img/${props.piece}.jpg`}
+          src={`${process.env.PUBLIC_URL}/img/${props.piece}.jpg`}
           className="memo--piece__front"
           alt={`dog-${props.piece}`}
         />
 
         <img
-          src={`./img/back.jpg`}
+          src={`${process.env.PUBLIC_URL}/img/back.jpg`}
           className="memo--piece__back"
           alt="back"
           onClick={() => props.onFlip(props.piece, props.spot)}

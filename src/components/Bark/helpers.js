@@ -13,25 +13,27 @@ export function newSeqNoR(length) {
   return newArr;
 }
 
-export const shuffle = array => {
+export const shuffle = (array) => {
   let newArr;
   let random = newSeqNoR(array.length);
-  newArr = random.reduce(function(sum, thisElement) {
+  newArr = random.reduce(function (sum, thisElement) {
     sum.push(array[thisElement]);
     return sum;
   }, []);
   return newArr;
 };
-export const checkIfGameWon = array => {
+export const checkIfGameWon = (array) => {
   return array.length > 7;
 };
 
-export const playBark = element => {
-  const audio = new Audio(`./audio/bark/${element}.mp3`);
+export const playBark = (element) => {
+  const audio = new Audio(
+    `${process.env.PUBLIC_URL}/audio/bark/${element}.mp3`
+  );
   audio.play();
 };
 
-export const addClassPlaying = element => {
+export const addClassPlaying = (element) => {
   try {
     document.getElementById(`bark--piece-${element}`).classList.add("playing");
   } catch (error) {
@@ -39,7 +41,7 @@ export const addClassPlaying = element => {
   }
 };
 
-export const removeClassPlaying = element => {
+export const removeClassPlaying = (element) => {
   try {
     document
       .getElementById(`bark--piece-${element}`)
