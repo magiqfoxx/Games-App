@@ -1,3 +1,3 @@
 App includes three simple games.
 
-Live at [katcodes.com/games](katcodes.com/games)
+Live at [https://magiqfoxx.github.io/Games-App](https://magiqfoxx.github.io/Games-App)
